@@ -8,10 +8,13 @@
 </template>
 
 <style>
-html,body{
+html,body,p,h3,h2,h4,h5,h6,a{
   padding: 0;
   margin: 0;
-  height: 100%;
+}
+p,a,span,li{
+  font-size: 12px !important;
+  text-decoration:none;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

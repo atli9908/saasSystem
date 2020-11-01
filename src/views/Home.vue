@@ -2,48 +2,128 @@
   <el-container>
     <!-- 侧边栏 -->
     <div class="my-sidbar">
-    <el-aside width="180px">
+    <el-aside width="160px">
       <el-col>
         <el-menu
-          default-active="2"
+          default-active="1"
           class="el-menu-vertical-demo"
           background-color="#324157"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
+
+          <!-- 头像 -->
+          <div class="my-head" style="height:160px">
+            <div class="block">
+              <el-avatar class="headicon" :size="60" :src="circleUrl">
+              </el-avatar>
+            </div>
+            <div class="mymsg">
+              <h4 style="font-weight:normal;">昵称</h4>
+              <p>[ 管理员 ]</p>
+              <ul>
+                <a href="#">个人中心</a>
+                <a href="#">|</a>
+                <a href="#">退出</a>
+              </ul>
+              
+            </div>
+          </div>
+
+          <el-menu-item index="1">
+            <i class="el-icon-s-shop"></i>
+            <span slot="title">概览</span>
           </el-menu-item>
-          <el-submenu index="1">
+          <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <i class="el-icon-goods"></i>
+              <span>商品</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="2-1">商品库列表</el-menu-item>
+              <el-menu-item index="2-2">商品标签</el-menu-item>
+              <el-menu-item index="2-3">商品评论</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>订单</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="3-1">发货管理</el-menu-item>
+              <el-menu-item index="3-2">售后订单</el-menu-item>
+              <el-menu-item index="3-3">历史订单</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-news"></i>
+              <span>库存</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="4-1">门店库存</el-menu-item>
+              <el-menu-item index="4-2">入库单</el-menu-item>
+              <el-menu-item index="4-3">出库单</el-menu-item>
+              <el-menu-item index="4-4">库存查询</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-user-solid"></i>
+              <span>客户</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="5-1">全部客户</el-menu-item>
+              <el-menu-item-group title="权益管理">
+                <el-menu-item index="5-2">会员设置</el-menu-item>
+                <el-menu-item index="5-3">会员权益</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="资产管理">
+                <el-menu-item index="5-4">积分管理</el-menu-item>
+                <el-menu-item index="5-5">储值管理</el-menu-item>
+              </el-menu-item-group>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="6">
+            <template slot="title">
+              <i class="el-icon-present"></i>
+              <span>营销</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="6-1">营销中心</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="7">
+            <template slot="title">
+              <i class="el-icon-pie-chart"></i>
+              <span>数据</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item-group title="店铺概况">
+                <el-menu-item index="7-1">数据概览</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="商品分析">
+                <el-menu-item index="7-2">商品概览</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="客群分析">
+                <el-menu-item index="7-3">属性分析</el-menu-item>
+              </el-menu-item-group>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="8">
+            <template slot="title">
+              <i class="el-icon-setting"></i>
+              <span>设置</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="8-1">商户信息</el-menu-item>
+              <el-menu-item-group title="系统设置">
+                <el-menu-item index="8-2">网店设置</el-menu-item>
+                <el-menu-item index="8-3">账号权限</el-menu-item>
+                <el-menu-item index="8-4">操作日志</el-menu-item>
+              </el-menu-item-group>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-col>
     </el-aside>
@@ -52,14 +132,22 @@
 
     <!-- 主体 -->
     <el-container>
+      <!-- 头 -->
       <el-header>
         <el-row>
-          <el-col :span="16"><h3 class="top-title">生态居家官方旗舰店</h3></el-col>
-          <el-col :span="2"><p>客服通知</p></el-col>
-          <el-col :span="2"><p>系统管理</p></el-col>
-          <el-col :span="2"><p>帮助指引</p></el-col>
-          <el-col :span="2"><p class="top-icon"><i class="el-icon-s-fold" style="font-size:26px"></i></p></el-col>
+          <el-col :span="18">
+            <h3 class="top-title">生态居家官方旗舰店</h3>
+          </el-col>
+          <el-col :span="6">
+            <div style="width:400px">
+              <a href="#">客服通知</a>
+              <a href="#">系统管理</a>
+              <a href="#">帮助指引</a>
+              <a href=""><i class="el-icon-s-operation" style="font-size:16px"></i></a>
+            </div>  
+          </el-col>
         </el-row>
+        <!-- 内容 -->
         <el-main>Main</el-main>
       </el-header>
     </el-container>
@@ -78,9 +166,33 @@ export default {
 
 <style>
 .my-sidbar{
-  width: 180px;
+  width: 160px;
  
 }
+.my-head{
+  background-color: #2e314e;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.mymsg{
+  padding-top: 2px;
+  text-align: center;
+  color: aliceblue;
+}
+.mymsg ul{
+  overflow: hidden;
+  padding-left: 0;
+  padding-top: 5px;
+  
+}
+.mymsg a{
+  list-style: none;
+  padding: 5px;
+  color: cadetblue;
+  display: inline;
+}
+
 .el-aside{
   position: fixed;
   top: 0;
@@ -91,6 +203,10 @@ export default {
   min-height: calc(100vh);
   background-color: #324157 !important;
 }
+.el-submenu__title{
+  height: 40px !important;
+  line-height: 40px !important;
+}
 .el-col{
   height: 100%;
   overflow-x: hidden;
@@ -100,10 +216,18 @@ export default {
   height: 100%;
   border: 0 !important;
 }
+.el-header{
+  line-height: 60px;
+  border-bottom: 2px solid rosybrown;
+}
 .top-title{
-  color: royalblue;
+  color:slategrey;
 }
 .top-icon {
   float :right
+}
+.el-col-6 a{
+  margin:0px 6px;
+  color: #324157;
 }
 </style>
