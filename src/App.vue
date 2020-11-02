@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-
-    </div>
     <router-view />
   </div>
 </template>
 
 <style>
-html,body,p,h3,h2,h4,h5,h6,a{
+html,body{
+  height: 100%;
   padding: 0;
   margin: 0;
+}
+p,h3,h2,h4,h5,h6,a{
+  padding: 0;
+  margin: 0;
+}
+h6{
+  font-weight:500;
+  font-size: 14px;
+  color: #333;
 }
 p,a,span,li{
   font-size: 12px !important;
@@ -22,6 +29,7 @@ p,a,span,li{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  background-color: rgb(252, 252, 252);
 }
 
 #nav a {
