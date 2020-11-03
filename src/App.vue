@@ -40,4 +40,11 @@ p,a,span,li{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* 文字超出显示省略号 */
+.my-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
