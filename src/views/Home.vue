@@ -7,25 +7,14 @@
     <el-container>
       <!-- 头 -->
       <el-header>
-        <el-row>
-          <el-col :span="18">
-            <h3 class="top-title">生态居家官方旗舰店</h3>
-          </el-col>
-          <el-col :span="6">
-            <div style="width:400px">
-              <a href="#">客服通知</a>
-              <a href="#">系统管理</a>
-              <a href="#">帮助指引</a>
-              <a href=""><i class="el-icon-s-operation" style="font-size:16px"></i></a>
-            </div>  
-          </el-col>
-        </el-row>
+        <my-header/>
       </el-header>
+
       <!-- 内容 -->
-      <el-main style="padding:8px">
+      <el-main style="padding: 8px">
         <el-row :gutter="10">
           <!-- 左侧内容 -->
-          <el-col :span="19" class="left-content">
+          <el-col :span="19" class="left-content hidden-sm-and-down">
             <el-row :gutter="10">
               <el-col :span="15">
                 <div class="bg-purple card-1">
@@ -69,31 +58,11 @@
             <el-row>
               <el-col :span="24">
                 <div class="card-3 bg-purple">
-                  <h5>常用功能</h5>
+                  <h5>{{this.home_cygn.title}}</h5>
                   <el-row>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
-                    </el-col>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
-                    </el-col>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
-                    </el-col>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
-                    </el-col>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
-                    </el-col>
-                    <el-col :span="3">
-                      <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
-                      <p>发布商品</p>
+                    <el-col :span="3" v-for="(item,index) in home_cygn.msg" :key="index">
+                      <img :src="item.imgsrc" alt="">
+                      <p>{{item.des}}</p>
                     </el-col>
                   </el-row>
                 </div>
@@ -103,71 +72,26 @@
               <el-row class="card-4-1">
                 <el-col :span="6">
                   <div>
-                    <h5>营销活动</h5>
+                    <h5>{{this.home_yxhd.title}}</h5>
                   </div>
                 </el-col>
                 <el-col :span="6" :offset="12">
                   <div style="text-align:right">
-                    <a href="#">营销中心</a>
+                    <a href="#">{{this.home_yxhd.childTitle}}</a>
                   </div>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
-                <el-col :span="8">
+                <el-col :span="8" v-for="(item,index) in home_yxhd.msg" :key="index">
                   <div class="bg-purple">
                     <el-row :gutter="0">
                       <el-col :span="7">
-                        <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""></div>
+                        <div><img :src="item.imgsrc" alt=""></div>
                       </el-col>
                       <el-col :span="16">
                         <div>
-                          <h6 class="card-4-t2">拼团</h6>
-                          <p>拼单成团，裂变获客，促转化</p>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </el-col>
-                <el-col :span="8">
-                  <div class="bg-purple">
-                    <el-row :gutter="0">
-                      <el-col :span="7">
-                        <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""></div>
-                      </el-col>
-                      <el-col :span="16">
-                        <div>
-                          <h6 class="card-4-t2">拼团</h6>
-                          <p>拼单成团，裂变获客，促转化</p>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </el-col>
-                <el-col :span="8">
-                  <div class="bg-purple">
-                    <el-row :gutter="0">
-                      <el-col :span="7">
-                        <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""></div>
-                      </el-col>
-                      <el-col :span="16">
-                        <div>
-                          <h6 class="card-4-t2">拼团</h6>
-                          <p>拼单成团，裂变获客，促转化</p>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </el-col>
-                <el-col :span="8">
-                  <div class="bg-purple">
-                    <el-row :gutter="0">
-                      <el-col :span="7">
-                        <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""></div>
-                      </el-col>
-                      <el-col :span="16">
-                        <div>
-                          <h6 class="card-4-t2">拼团</h6>
-                          <p>拼单成团，裂变获客，促转化</p>
+                          <h6 class="card-4-t2">{{item.msg_title}}</h6>
+                          <p>{{item.des}}</p>
                         </div>
                       </el-col>
                     </el-row>
@@ -210,6 +134,47 @@ import myHeader from '../components/header'
 
 export default {
   name: "home",
+  data(){
+    return {
+      home_cygn:{
+        title:'常用功能',
+        msg:[
+          {
+            imgsrc:'/img/1.png',
+            des:'发布商品'
+          },
+          {
+            imgsrc:'/img/2.png',
+            des:'库存管理'
+          },
+          {
+            imgsrc:'/img/4.png',
+            des:'消息通知'
+          },
+          {
+            imgsrc:'/img/5.png',
+            des:'营销概况'
+          },
+          {
+            imgsrc:'/img/6.png',
+            des:'微客服'
+          }
+        ]
+      },
+      home_yxhd:{
+        title:'营销活动',
+        childTitle:'营销中心',
+        msg:[
+          {imgsrc:'/img/yxhd/1.png',msg_title:'拼团',des:'拼单成团，裂变获客，促转化'},
+          {imgsrc:'/img/yxhd/2.png',msg_title:'砍价',des:'邀请朋友砍价，裂变促销量'},
+          {imgsrc:'/img/yxhd/3.png',msg_title:'限时折扣',des:'商品限时打折促销'},
+          {imgsrc:'/img/yxhd/4.png',msg_title:'满减满折',des:'拼单成团，裂变获客，促转化'},
+          {imgsrc:'/img/yxhd/5.png',msg_title:'满减邮',des:'拼单成团，裂变获客，促转化'},
+          {imgsrc:'/img/yxhd/6.png',msg_title:'优惠券',des:'拼单成团，裂变获客，促转化'},
+        ]
+      }
+    }
+  },
   components: {
     mySidbar,
     myHeader
@@ -219,20 +184,10 @@ export default {
 
 <style>
 
-.el-header{
-  line-height: 50px;
-  border-bottom: 2px solid rosybrown;
-  background-color: #fff;
-}
-.top-title{
-  color:slategrey;
-}
-.top-icon {
-  float :right
-}
-.el-col-6 a{
-  margin:0px 6px;
-  color: #324157;
+@media screen and (max-width: 100px) {
+    .hidden-sm-and-down{
+      display: none;
+    }
 }
 
 .bg-purple{

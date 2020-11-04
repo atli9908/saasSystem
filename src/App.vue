@@ -10,9 +10,14 @@ html,body{
   padding: 0;
   margin: 0;
 }
-p,h3,h2,h4,h5,h6,a{
+p,h3,h2,h4,h6,a{
   padding: 0;
   margin: 0;
+}
+h5{
+  padding: 0;
+  margin: 0;
+  color:rgb(95, 95, 95);
 }
 h6{
   font-weight:500;
@@ -46,5 +51,13 @@ p,a,span,li{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+/* 设置全局滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(211, 211, 211);
+  border-radius: 3px;
 }
 </style>
