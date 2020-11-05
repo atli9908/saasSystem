@@ -29,7 +29,7 @@
 
             <!-- 功能导航 -->
             <div>
-              <el-menu-item index="1">
+              <el-menu-item index="1" @click="$router.push({path:'/'})">
                 <i class="el-icon-s-shop"></i>
                 <span slot="title">概览</span>
               </el-menu-item>
@@ -39,7 +39,7 @@
                   <span>商品</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="2-1">商品库列表</el-menu-item>
+                  <router-link :to="{name: 'goodsList'}"><el-menu-item index="2-1">商品库列表</el-menu-item></router-link>
                   <el-menu-item index="2-2">商品标签</el-menu-item>
                   <el-menu-item index="2-3">商品评论</el-menu-item>
                 </el-menu-item-group>
