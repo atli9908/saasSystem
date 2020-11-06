@@ -45,7 +45,14 @@ p,a,span,li{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
+/* 盒子阴影 */
+.bg-purple{
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgb(240, 240, 240);
+  margin: 3px 0px;
+  padding: 10px;
+}
 /* 文字超出显示省略号 */
 .my-ellipsis{
   white-space: nowrap;
@@ -59,5 +66,10 @@ p,a,span,li{
 ::-webkit-scrollbar-thumb {
   background-color: rgb(211, 211, 211);
   border-radius: 3px;
+}
+/* 分割线 */
+.aline{
+  border: 0.3px solid #ccc;
+  margin: 20px 0;
 }
 </style>

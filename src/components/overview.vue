@@ -166,16 +166,6 @@ export default {
       display: none;
     }
 }
-
-.bg-purple{
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgb(240, 240, 240);
-  margin: 3px 0px;
-  padding: 10px;
-}
-
-
 .left-content a{
   color: steelblue;
 }
