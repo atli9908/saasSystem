@@ -43,13 +43,88 @@
                     </div>
                 </div>
             </div>
+
             <div class="list-box bg-purple">
+                <el-table
+                ref="multipleTable"
+                :data="tableData"
+                tooltip-effect="dark"
+                style="width: 100%"
+                @selection-change="handleSelectionChange">
+                    <el-table-column type="selection" width="35">
+                    </el-table-column>
+                    <el-table-column
+                    prop="title"
+                    label="商品名称"
+                    width="220">
+                    </el-table-column>
+                    <el-table-column
+                    sortable
+                    prop="price"
+                    label="价格"
+                    width="80">
+                    </el-table-column>
+                    <el-table-column
+                    sortable
+                    prop="sales"
+                    label="实际销量"
+                    show-overflow-tooltip
+                    width="100">
+                    </el-table-column>
+                    <el-table-column
+                    prop="channel"
+                    label="销售渠道"
+                    width="100">
+                    </el-table-column>
+                    <el-table-column
+                    sortable
+                    prop="data"
+                    label="创建时间"
+                    width="120">
+                      <template slot-scope="scope">{{ scope.row.date }}</template>
+                    </el-table-column>
+                    <el-table-column
+                    prop="state"
+                    label="可售状态"
+                    width="100">
+                      <template slot-scope="scope">
+                        <el-switch
+                          v-model= 'scope.row.state'
+                          active-color="#13ce66"
+                          inactive-color="#ff4949">
+                        </el-switch> 
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                    sortable
+                    prop="mid"
+                    label="排序"
+                    width="80">
+                    </el-table-column>
+                    <el-table-column
+                    prop="name"
+                    label="操作"
+                    >
+                      <template slot-scope="scope">
+                        <div class="caoz">
+                            <a href="#">分配门店</a>
+                            <a href="#">推广</a>
+                            <a href="#">编辑</a>
+                            <a href="#">复制</a>
+                        </div>
+                      </template>
+                    </el-table-column>
+                </el-table>
             </div>
         </div>
+
+        <!-- 分页 -->
+        <my-page/>
     </div>
 </template>
 
 <script>
+import myPage from './common/myPage';
 export default {
     data(){
         return {
@@ -66,8 +141,44 @@ export default {
           }],
           searchText:'',
           select:'商品名称',
-          value:''
-        }
+          value:'',
+          tableData: [
+            {
+              title:'KARCHER卡赫家用吸尘器 强力除螨 便携式吸尘器',
+              price:'1799',
+              sales:'0',
+              channel:'线上+线下',
+              date: '2016-05-03',
+              state: false,
+              mid: '0'
+            }, {
+              title:'KARCHER卡赫家用吸尘器 强力除螨 便携式吸尘器',
+              price:'1799',
+              sales:'0',
+              channel:'线上+线下',
+              date: '2016-05-03',
+              state: true,
+              mid: '0'
+            }, {
+              title:'KARCHER卡赫家用吸尘器 强力除螨 便携式吸尘器',
+              price:'1799',
+              sales:'0',
+              channel:'线上+线下',
+              date: '2016-05-03',
+              state: false,
+              mid: '0'
+            }
+        ],
+        multipleSelection: []
+      }
+    },
+    methods:{
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      }
+    },
+    components:{
+        myPage
     }
 }
 </script>
@@ -77,7 +188,7 @@ export default {
     margin-bottom: 10px;
 }
 .shangp_title{
-    margin: 26px 0;
+    margin: 22px 0;
 }
 .content-wrap{
     background-color: rgb(240, 240, 240);
@@ -116,7 +227,19 @@ export default {
     margin-right: 10px;
 
 }
-
-
+.list-box div{
+    font-size: 12px;
+    color: #444;
+}
+.list-box .el-table__row{
+    height: 58px;
+}
+.list-box th,.list-box td{
+    padding: 2px 0;
+}
+.list-box .caoz a{
+    margin: 0 5px;
+    color: steelblue;
+}
 
 </style>
