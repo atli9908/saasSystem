@@ -8,7 +8,7 @@
             layout="prev, pager, next, jumper"
             :page-size="20"
             :total="total"
-            @current-change="pageChange"
+            @current-change="pageChange">
         </el-pagination>
     </div>
 </template>

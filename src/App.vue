@@ -24,9 +24,12 @@ h6{
   font-size: 14px;
   color: #333;
 }
-p,a,span,li{
+p,a,li{
   font-size: 12px !important;
   text-decoration:none;
+}
+span{
+  font-size: 12px;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
