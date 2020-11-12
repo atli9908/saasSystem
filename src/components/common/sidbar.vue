@@ -40,8 +40,9 @@
                 </template>
                 <el-menu-item-group>
                   <router-link :to="{name: 'goodsList'}"><el-menu-item index="2-1">商品库列表</el-menu-item></router-link>
-                  <el-menu-item index="2-2">商品标签</el-menu-item>
-                  <el-menu-item index="2-3">商品评论</el-menu-item>
+                  <router-link :to="{name: 'goodsGroup'}"><el-menu-item index="2-2">商品分组</el-menu-item></router-link>
+                  <el-menu-item index="2-3">商品标签</el-menu-item>
+                  <el-menu-item index="2-4">商品评论</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="3">

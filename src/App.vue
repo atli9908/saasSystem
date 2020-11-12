@@ -48,10 +48,10 @@ span{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-/* 盒子阴影 */
+/* 小盒子样式 */
 .bg-purple{
   background-color: rgb(255, 255, 255);
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0px 0px 5px rgb(240, 240, 240);
   margin: 3px 0px;
   padding: 10px;
@@ -74,5 +74,15 @@ span{
 .aline{
   border: 0.3px solid #ccc;
   margin: 20px 0;
+}
+/* 页面小标题 */
+.view_title{
+    margin: 22px 0;
+}
+/* 小标题下内容包裹区 */
+.content-wrap{
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    border-radius: 5px;
 }
 </style>

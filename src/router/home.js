@@ -14,6 +14,11 @@ export default {
       path: "/goodslist",
       name: "goodsList",
       component: ()=> import("../components/goods_list.vue")
-    } 
+    },
+    {
+      path: "/goodsgroup",
+      name: "goodsGroup",
+      component: ()=> import("../components/goods_group.vue")
+    }
   ]   
 }

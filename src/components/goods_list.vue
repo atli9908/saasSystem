@@ -1,6 +1,6 @@
 <template>
     <div class="bg-purple">
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-dialog title="高级筛选" :visible.sync="dialogFormVisible">
             <div class="gropdiv">
                 <span class="tag-title">商品类型</span>
                 <span class="my-tag" :class="active">全部</span>
@@ -27,23 +27,66 @@
                 <span class="my-tag">禁售</span>
                 <span class="my-tag">可售</span>
             </div>
-            <el-form :model="form">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                <el-input v-model="form.name" auto-complete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-                </el-form-item>
-            </el-form>
+            <div class="gropdiv">
+                <el-row>
+                    <el-col :span="24">
+                        <span class="tag-title">商品创建时间</span>
+                        <el-date-picker
+                            size="mini"
+                            v-model="value1"
+                            type="daterange"
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
+                        </el-date-picker>
+                    </el-col> 
+                </el-row>
+            </div>
+            <div class="gropdiv">
+                <el-row>
+                    <el-col :span="24">
+                        <span class="tag-title">商品价格区间</span>
+                        <el-input v-model="form.name" size="mini" style="width:80px"></el-input>
+                        <span>  -  </span>
+                        <el-input v-model="form.name" size="mini" style="width:80px"></el-input>
+                    </el-col> 
+                </el-row>
+            </div>
+            <div class="gropdiv">
+                <el-row>
+                    <el-col :span="8">
+                        <span class="tag-title">商品分组</span>
+                        <el-select  v-model="value1" placeholder="请选择" size="mini">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+    
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="tag-title">商品属性</span>
+                        <el-select  v-model="value1" placeholder="请选择" size="mini">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+    
+                    </el-col> 
+                    <el-col :span="8">
+                        <span class="tag-title">商品服务</span>
+                        <el-select  v-model="value1" placeholder="请选择" size="mini">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+    
+                    </el-col>  
+                </el-row>
+            </div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
             </div>
         </el-dialog>
-        <h5 class="shangp_title">商品库列表</h5>
+
+        <h5 class="view_title">商品库列表</h5>
         <div class="content-wrap">
             <!-- box1 -->
             <div class="search-box bg-purple jianju">
@@ -94,10 +137,11 @@
                     :data="tableData"
                     tooltip-effect="dark"
                     style="width: 100%"
-                    @selection-change="handleSelectionChange"
-                >
+                    @selection-change="handleSelectionChange">
+
                     <el-table-column type="selection" width="35">
                     </el-table-column>
+
                     <el-table-column
                         prop="title"
                         label="商品名称"
@@ -109,7 +153,7 @@
                         prop="price"
                         label="价格"
                         width="80"
-                    >                        >
+                    >                        
                     </el-table-column>
                     <el-table-column
                         sortable
@@ -224,7 +268,7 @@ export default {
         ],
         multipleSelection: [],
         dialogTableVisible: false,
-        dialogFormVisible: true,
+        dialogFormVisible: false,
         form: {
           name: '',
           region: '',
@@ -236,7 +280,8 @@ export default {
           desc: ''
         },
         formLabelWidth: '120px',
-        active:'hoverbg'
+        active:'hoverbg',
+        value1:''
       }
     },
     methods:{
@@ -253,14 +298,6 @@ export default {
 <style>
 .jianju{
     margin-bottom: 10px;
-}
-.shangp_title{
-    margin: 22px 0;
-}
-.content-wrap{
-    background-color: rgb(240, 240, 240);
-    padding: 10px;
-    border-radius: 5px;
 }
 .el-input{
     width: 35%;
@@ -309,18 +346,22 @@ export default {
     color: steelblue;
 }
 
+
+.el-dialog__body{
+    padding: 20px 30px;
+}
 .gropdiv{
     height: 50px;
 }
 .tag-title{
     color: #333;
     font-weight: 600;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 .my-tag{
     padding: 10px 15px;
     background-color: rgb(243, 243, 243);
-    margin: 0 5px;
+    margin-right: 10px;
     color: #333;
     border-radius: 5px;
 }
