@@ -1,10 +1,44 @@
 <template>
     <div class="bg-purple">
+        <!-- 新增分组对话框 -->
+        <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='30%'>
+            <el-form :model="form" label-width="120px" :rules="rules">
+                <el-form-item label="级别">
+                    <el-radio-group v-model="form.resource">
+                    <el-radio label="一级"></el-radio>
+                    <el-radio label="二级"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <div>
+                    <el-form-item label="一级分组名称" prop="name">
+                        <el-input
+                        type="text"
+                        placeholder="请输入内容"
+                        v-model="form.name"
+                        maxlength="5"
+                        show-word-limit
+                        >
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="分组状态">
+                        <el-radio-group v-model="form.resource">
+                        <el-radio label="显示"></el-radio>
+                        <el-radio label="隐藏"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </div>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            </div>
+        </el-dialog>
+
         <h5 class="view_title">商品分组</h5>
         <div class="content-wrap">
             <div class="bg-purple jianju">
                 <el-button plain size="small" class="zhed-btn"><i class="el-icon-caret-bottom"></i> 折叠全部</el-button>
-                <el-button plain size="small" style="float:right">新增一级分组</el-button>
+                <el-button plain size="small" style="float:right" @click="dialogFormVisible = true">新增一级分组</el-button>
             </div>
             <div class="bg-purple jianju">
                 <div class="thead" @click="showTbody">
@@ -68,12 +102,13 @@
                     </el-row>
                 </div>
             </div>
-            <div class="bg-purple jianju" v-for="item in primaryGroup" :key="item.title">
-                <div class="thead">
+
+            <div class="bg-purple jianju" v-for="(item,index) in primaryGroup" :key="item.title">
+                <div class="thead" ref="theads" @click="clickShow(index)">
                     <el-row>
                         <el-col :span="14">
                             <div>
-                                <i :class="sicon"></i>
+                                <i :class="item.sicon"></i>
                                 <span>{{item.title}}</span>
                             </div>
                         </el-col>
@@ -82,7 +117,7 @@
                                 <span>分组显示 </span>
                                 <el-switch
                                 v-model="item.status"
-                                @change="changeSwitch()"
+                                @change="changeSwitch(index)"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
                                 </el-switch>
@@ -97,7 +132,7 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div class="tbody">
+                <div class="tbody" v-if="item.showTbody">
                     <el-row v-for="subItem in item.subGroup">
                         <el-col :span="7">
                             <div class="imgTitle">
@@ -139,13 +174,26 @@
 export default {
     data(){
         return {
+            dialogFormVisible:false,
+            form:{
+                resource:'',
+                name:''
+            },
+            rules: {
+                name: [
+                    { required: true, message: '请输入分组名称', trigger: 'blur' },
+                    { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+                ]
+            },
             value:true,
             isshow:true,
-            sicon:'el-icon-caret-right',
+            sicon:'el-icon-caret-bottom',
             primaryGroup:[
                 {
                     title:'洗家电器',
                     status:true,
+                    showTbody:true,
+                    sicon:'el-icon-caret-bottom',
                     subGroup:[
                         {imgsrc:'/img/1.png',subTitle:'擦地机',status:true},
                         {imgsrc:'/img/1.png',subTitle:'吸尘器',status:true},
@@ -156,6 +204,8 @@ export default {
                 {
                     title:'美容清洗',
                     status:true,
+                    showTbody:true,
+                    sicon:'el-icon-caret-bottom',
                     subGroup:[
                         {imgsrc:'/img/1.png',subTitle:'高压清洗机',status:false},
                         {imgsrc:'/img/1.png',subTitle:'吸尘器',status:false},
@@ -170,24 +220,42 @@ export default {
             this.isshow = !this.isshow
             this.sicon = this.isshow ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
         },
-        changeSwitch(){
-            this.primaryGroup.forEach(primaryGroup =>{
-                if(primaryGroup.status){
-                    primaryGroup.subGroup.forEach(item=>{
+        clickShow(row){
+            this.primaryGroup[row].showTbody = !this.primaryGroup[row].showTbody
+            this.primaryGroup[row].sicon = this.primaryGroup[row].showTbody ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
+        },
+        changeSwitch(row){
+           
+                if(this.primaryGroup[row].status){
+                    this.primaryGroup[row].subGroup.forEach(item=>{
                         item.status=true;
                     })
                 }else{
-                    primaryGroup.subGroup.forEach(item=>{
+                    this.primaryGroup[row].subGroup.forEach(item=>{
                         item.status=false;
                     })
                 }
-            })
+            
         } 
     },
 }
 </script>
 
 <style>
+.jianju{
+    margin-bottom: 10px;
+}
+/* 弹框*/
+.el-dialog__body{
+    padding: 0 20px;
+}
+.el-dialog__title{
+    font-size: 14px;
+    font-weight: 600;
+}
+.el-form-item__label{
+    padding-right: 20px;
+}
 .thead{
     border-bottom: 1px solid #eee;
     padding: 10px 20px;
