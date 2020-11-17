@@ -4,12 +4,12 @@
         <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='30%'>
             <el-form :model="form" label-width="120px" :rules="rules">
                 <el-form-item label="级别">
-                    <el-radio-group v-model="form.resource">
-                    <el-radio label="一级"></el-radio>
-                    <el-radio label="二级"></el-radio>
+                    <el-radio-group v-model="form.grade" @change="radioChange()">
+                    <el-radio label="1">一级</el-radio>
+                    <el-radio label="2">二级</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <div>
+                <div class="one" v-if=form.showOne>
                     <el-form-item label="一级分组名称" prop="name">
                         <el-input
                         type="text"
@@ -22,8 +22,41 @@
                     </el-form-item>
                     <el-form-item label="分组状态">
                         <el-radio-group v-model="form.resource">
-                        <el-radio label="显示"></el-radio>
-                        <el-radio label="隐藏"></el-radio>
+                        <el-radio label=1>显示</el-radio>
+                        <el-radio label=0>隐藏</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </div>
+
+                <div class="two" v-if=form.showTwo>
+                    <el-form-item label="上级分组" prop="region">
+                        <el-select v-model="form.region" placeholder="请选择">
+                        <el-option v-for="(item,index) in primaryGroup" :label='item.title' :value='index'></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="二级分组名称" prop="childName">
+                        <el-input 
+                        type="text"
+                        placeholder="请输入内容"
+                        v-model="form.childName"
+                        maxlength="15"
+                        show-word-limit>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="二级分组图片">
+                        <el-upload
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :limit="1"
+                        :file-list="fileList">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item label="分组状态">
+                        <el-radio-group v-model="form.resource">
+                        <el-radio label=1>显示</el-radio>
+                        <el-radio label=0>隐藏</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </div>
@@ -125,7 +158,7 @@
                         </el-col>
                         <el-col :span="5">
                             <div @click.stop="" class="caoz-a">
-                                <a href="#">新增二级分组</a>
+                                <a href="#" @click="dialogFormVisible = true;form.region=index">新增二级分组</a>
                                 <a href="#">编辑</a>
                                 <a href="#">删除</a>
                             </div>
@@ -175,14 +208,27 @@ export default {
     data(){
         return {
             dialogFormVisible:false,
+            fileList: [],
             form:{
-                resource:'',
-                name:''
+                grade:'1',
+                resource:'1',
+                name:'',
+                childName:'',
+                region:'',
+                showOne:true,
+                showTwo:false
             },
             rules: {
                 name: [
                     { required: true, message: '请输入分组名称', trigger: 'blur' },
                     { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+                ],
+                childName: [
+                    { required: true, message: '请输入分组名称', trigger: 'blur' },
+                    { min: 2, max: 15, message: '长度在 2 到 15 个字符', trigger: 'blur' }
+                ],
+                region: [
+                    { required: true, message: '请选择活动区域', trigger: 'change' }
                 ]
             },
             value:true,
@@ -223,6 +269,15 @@ export default {
         clickShow(row){
             this.primaryGroup[row].showTbody = !this.primaryGroup[row].showTbody
             this.primaryGroup[row].sicon = this.primaryGroup[row].showTbody ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
+        },
+        radioChange(){
+            if(this.form.grade==='1'){
+                this.form.showOne = true;
+                this.form.showTwo = false;
+            }else{
+                this.form.showTwo = true;
+                this.form.showOne = false;
+            }
         },
         changeSwitch(row){
            
