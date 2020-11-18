@@ -48,12 +48,19 @@ span{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* 搜索表单样式 */
+.input-with-select .el-input-group__prepend {
+    background-color: #fff;
+    color: #000;
+}
+
 /* 小盒子样式 */
 .bg-purple{
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   box-shadow: 0px 0px 5px rgb(240, 240, 240);
-  margin: 3px 0px;
+  margin: 2px 0px;
   padding: 10px;
 }
 /* 文字超出显示省略号 */
@@ -82,7 +89,7 @@ span{
 /* 小标题下内容包裹区 */
 .content-wrap{
     background-color: rgb(240, 240, 240);
-    padding: 10px;
+    padding: 8px;
     border-radius: 5px;
 }
 </style>

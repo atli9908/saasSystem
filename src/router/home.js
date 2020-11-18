@@ -19,6 +19,17 @@ export default {
       path: "/goodsgroup",
       name: "goodsGroup",
       component: ()=> import("../components/goods_group.vue")
+    },
+    {
+      path: '/goodstag',
+      name: 'goodsTag',
+      component: ()=> import("../components/goods_tag.vue")
+    },
+    {
+      path:'/goodscomment',
+      name:'goodsComment',
+      component: ()=> import("../components/goods_comment.vue")
     }
+
   ]   
 }

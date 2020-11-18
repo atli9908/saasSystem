@@ -136,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="bg-purple jianju" v-for="(item,index) in primaryGroup" :key="item.title">
+            <div class="bg-purple" v-for="(item,index) in primaryGroup" :key="item.title">
                 <div class="thead" ref="theads" @click="clickShow(index)">
                     <el-row>
                         <el-col :span="14">
