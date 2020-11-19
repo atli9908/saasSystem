@@ -131,7 +131,7 @@
                 </div>
             </div>
             <!-- box2 -->
-            <div class="list-box bg-purple">
+            <div class="list-box bg-purple my-table">
                 <el-table
                     ref="multipleTable"
                     :data="tableData"
@@ -295,7 +295,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .jianju{
     margin-bottom: 10px;
 }
@@ -308,7 +308,7 @@ export default {
     border: 1px solid rgb(83, 163, 255);
     color:rgb(83, 163, 255);
 }
-.el-select .el-input {
+.el-select {
     width: 100px;
     font-size: 12px;
 }
@@ -322,10 +322,6 @@ export default {
     float: left;
     margin-right: 10px;
 
-}
-.list-box div{
-    font-size: 12px;
-    color: #444;
 }
 .list-box .el-table__row{
     height: 58px;

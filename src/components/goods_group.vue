@@ -31,7 +31,7 @@
                 <div class="two" v-if=form.showTwo>
                     <el-form-item label="上级分组" prop="region">
                         <el-select v-model="form.region" placeholder="请选择">
-                        <el-option v-for="(item,index) in primaryGroup" :label='item.title' :value='index'></el-option>
+                        <el-option v-for="(item,index) in primaryGroup" :label='item.title' :value='index' :key="index"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="二级分组名称" prop="childName">
@@ -73,7 +73,7 @@
                 <el-button plain size="small" class="zhed-btn"><i class="el-icon-caret-bottom"></i> 折叠全部</el-button>
                 <el-button plain size="small" style="float:right" @click="dialogFormVisible = true">新增一级分组</el-button>
             </div>
-            <div class="bg-purple jianju">
+            <div class="bg-purple jianju my-table">
                 <div class="thead" @click="showTbody">
                     <el-row>
                         <el-col :span="14">
@@ -166,7 +166,7 @@
                     </el-row>
                 </div>
                 <div class="tbody" v-if="item.showTbody">
-                    <el-row v-for="subItem in item.subGroup">
+                    <el-row v-for="subItem in item.subGroup" :key="subItem.subTitle">
                         <el-col :span="7">
                             <div class="imgTitle">
                                 <img :src="subItem.imgsrc" alt="">
@@ -296,7 +296,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .jianju{
     margin-bottom: 10px;
 }

@@ -92,4 +92,16 @@ span{
     padding: 8px;
     border-radius: 5px;
 }
+/* 表格样式 */
+.my-table th{
+    color: #333;
+}
+.my-table div{
+    font-size: 12px;
+}
+/* 操作按钮 */
+.caoz a{
+    margin-right: 12px;
+    color: steelblue;
+}
 </style>

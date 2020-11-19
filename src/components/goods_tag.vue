@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="bg-purple div2">
+            <div class="bg-purple div2 my-table">
                 <el-table
                     ref="multipleTable"
                     :data="tableData"
@@ -73,7 +73,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .jianju{
     margin-bottom: 10px;
 }
@@ -86,17 +86,6 @@ export default {
 }
 .div1 .search{
     float: right;
-}
-
-.div2 th{
-    color: #333;
-}
-.div2 div{
-    font-size: 12px;
-}
-.div2 .caoz a{
-    margin-right: 12px;
-    color: steelblue;
 }
 
 </style>
