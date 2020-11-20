@@ -62,7 +62,7 @@
                   <span>库存</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="4-1">门店库存</el-menu-item>
+                  <router-link :to="{name:'inventory'}"><el-menu-item index="4-1">门店库存</el-menu-item></router-link>
                   <el-menu-item index="4-2">入库单</el-menu-item>
                   <el-menu-item index="4-3">出库单</el-menu-item>
                   <el-menu-item index="4-4">库存查询</el-menu-item>

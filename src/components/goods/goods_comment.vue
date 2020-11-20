@@ -12,7 +12,7 @@
                     </el-option>
                 </el-select>
 
-                <el-select size="mini" v-for="(item,index) in selects" v-model="value" :placeholder='item' class="selects">
+                <el-select size="mini" v-for="(item,index) in selects" v-model="value" :placeholder='item' :key="index" class="selects">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -57,7 +57,7 @@
                     show-overflow-tooltip
                     width="200">
                         <template v-slot="scope">
-                            <div class="msgImg">
+                            <div>
                                 <img src="/img/1.png" alt="">
                                 <span>{{scope.row.msg}}</span>
                             </div>
@@ -153,6 +153,11 @@ export default {
 .selects{
     width: 100px;
 }
+.my-table img{
+    width: 30px;
+    vertical-align:middle;
+    margin-right: 5px;
+}
 .comment .searchipt{
     margin-right: 10px;
     margin-bottom: 8px; 
@@ -164,10 +169,5 @@ export default {
 }
 .comment .div1 input::placeholder{
     color: #333;
-}
-.msgImg img{
-    width: 30px;
-    vertical-align:middle;
-    margin-right: 5px;
 }
 </style>

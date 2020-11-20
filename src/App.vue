@@ -55,13 +55,17 @@ span{
     color: #000;
 }
 
-/* 小盒子样式 */
+/* 盒子样式 */
 .bg-purple{
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   box-shadow: 0px 0px 5px rgb(240, 240, 240);
   margin: 2px 0px;
   padding: 10px;
+}
+/* 盒子外间距 */
+.jianju{
+    margin-bottom: 10px;
 }
 /* 文字超出显示省略号 */
 .my-ellipsis{
@@ -103,5 +107,9 @@ span{
 .caoz a{
     margin-right: 12px;
     color: steelblue;
+}
+/* 统一下拉列表样式 */
+.selects{
+    width: 100px;
 }
 </style>

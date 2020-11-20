@@ -74,9 +74,6 @@ export default {
 </script>
 
 <style scoped>
-.jianju{
-    margin-bottom: 10px;
-}
 .div1{
     padding: 8px 20px;
     overflow: hidden;

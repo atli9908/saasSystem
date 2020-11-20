@@ -221,7 +221,7 @@
 </template>
 
 <script>
-import myPage from './common/myPage';
+import myPage from '../common/myPage';
 export default {
     data(){
         return {

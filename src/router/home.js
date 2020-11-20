@@ -13,22 +13,27 @@ export default {
     {
       path: "/goodslist",
       name: "goodsList",
-      component: ()=> import("../components/goods_list.vue")
+      component: ()=> import("../components/goods/goods_list.vue")
     },
     {
       path: "/goodsgroup",
       name: "goodsGroup",
-      component: ()=> import("../components/goods_group.vue")
+      component: ()=> import("../components/goods/goods_group.vue")
     },
     {
       path: '/goodstag',
       name: 'goodsTag',
-      component: ()=> import("../components/goods_tag.vue")
+      component: ()=> import("../components/goods/goods_tag.vue")
     },
     {
       path:'/goodscomment',
       name:'goodsComment',
-      component: ()=> import("../components/goods_comment.vue")
+      component: ()=> import("../components/goods/goods_comment.vue")
+    },
+    {
+      path:"/inventory",
+      name:"inventory",
+      component: ()=> import("../components/inventory/inventory.vue")
     }
 
   ]   
