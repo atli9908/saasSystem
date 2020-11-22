@@ -139,7 +139,7 @@
                     style="width: 100%"
                     @selection-change="handleSelectionChange">
 
-                    <el-table-column type="selection" width="35">
+                    <el-table-column type="selection" width="35" checked>
                     </el-table-column>
 
                     <el-table-column
@@ -216,12 +216,12 @@
         </div>
 
         <!-- 分页 -->
-        <my-page/>
+        <my-page :data="{tableData,multipleSelection}"/>
     </div>
 </template>
 
 <script>
-import myPage from '../common/myPage';
+import myPage from '../../components/common/myPage';
 export default {
     data(){
         return {
@@ -287,7 +287,7 @@ export default {
     methods:{
       handleSelectionChange(val) {
         this.multipleSelection = val;
-      }
+      },
     },
     components:{
         myPage

@@ -49,6 +49,9 @@
                         </template>
                     </el-table-column>
                     <el-table-column
+                        width="50">
+                    </el-table-column>
+                    <el-table-column
                         prop="name"
                         label="单位"
                         width="100">
@@ -66,23 +69,34 @@
                         label="可用库存">
                     </el-table-column>
                     <el-table-column
-                        prop="address"
                         label="成本">
+                        <template>
+                            <div>
+                                <input type="text" value=0>
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
-                        prop="address"
                         label="操作">
+                        <template>
+                            <a href="#">出入库明细</a>
+                        </template>
                     </el-table-column>
                 </el-table>
             </div>
         </div>
+        <my-page :data="{tableData,multipleSelection}"/>
     </div>
 </template>
 
 <script>
+import myPage from '../../components/common/myPage';
 export default {
+    components: { myPage },
     data(){
          return {
+            multipleSelection:[],
+            setPrice:true,
             options: [{
             value: '选项1',
             label: '黄金糕'
@@ -93,13 +107,13 @@ export default {
             value: '',
             searchText:'',
             tableData: [{
-                date: '德国卡赫家用手持式强力除螨便携式吸尘器',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
+                date: '0',
+                name: '0',
+                address: '0'
             }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
+                date: '0',
+                name: '0',
+                address: '0'
             }]
         }
     }

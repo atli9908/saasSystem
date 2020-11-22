@@ -1,7 +1,7 @@
 <template>
     <div class="my-page">
         <div style="float:left">
-            <span>已选择0条，总共{{this.total}}条，当前为第{{this.currentPage}}页</span>
+            <span>已选择{{this.data.multipleSelection.length}}条，总共{{this.total}}条，当前为第{{this.currentPage}}页</span>
         </div>
         <el-pagination
             style="float:right"
@@ -17,8 +17,15 @@
 export default {
     data(){
         return {
-            total:500,
+            total:this.data.tableData.length,
+            checkedCount:this.data.multipleSelection.length,
             currentPage:1,
+        }
+    },
+    props:{
+        data:{
+            tableData:Array,
+            multipleSelection:Array
         }
     },
     methods: {
@@ -42,7 +49,9 @@ export default {
     bottom: 0;
     z-index: 1000;
 }
-
+.el-pager li{
+    margin: 0 5px!important;
+}
 .el-pager li,
 .el-pagination button,
 .el-pagination__editor.el-input .el-input__inner
@@ -50,12 +59,9 @@ export default {
     min-width: 25px !important;
     height: 25px;
     line-height: 25px;
-    padding: 0;
     font-weight: 500;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 0 3px;
-    
+    border-radius: 5px;    
 }
 .el-pagination .btn-prev .el-icon,
 .el-pagination .btn-next .el-icon

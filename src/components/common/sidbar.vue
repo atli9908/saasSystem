@@ -4,7 +4,9 @@
       <el-aside width="160px">
         <el-col>
           <el-menu
-            default-active="1"
+            router
+            :default-active="activeIndex"
+            :default-openeds="openeds"
             class="el-menu-vertical-demo"
             background-color="#324157"
             text-color="#fff"
@@ -17,7 +19,7 @@
                 </el-avatar>
               </div>
               <div class="mymsg">
-                <h4 style="font-weight:normal;">昵称</h4>
+                <h4 style="font-weight:normal;">{{adminName}}</h4>
                 <p>[ 管理员 ]</p>
                 <ul>
                   <a href="#">个人中心</a>
@@ -29,7 +31,7 @@
 
             <!-- 功能导航 -->
             <div>
-              <el-menu-item index="1" @click="$router.push({path:'/'})">
+              <el-menu-item index="/">
                 <i class="el-icon-s-shop"></i>
                 <span slot="title">概览</span>
               </el-menu-item>
@@ -39,10 +41,10 @@
                   <span>商品</span>
                 </template>
                 <el-menu-item-group>
-                  <router-link :to="{name: 'goodsList'}"><el-menu-item index="2-1">商品库列表</el-menu-item></router-link>
-                  <router-link :to="{name: 'goodsGroup'}"><el-menu-item index="2-2">商品分组</el-menu-item></router-link>
-                   <router-link :to="{name: 'goodsTag'}"><el-menu-item index="2-3">商品标签</el-menu-item></router-link>
-                   <router-link :to="{name: 'goodsComment'}"><el-menu-item index="2-4">商品评论</el-menu-item></router-link>
+                  <el-menu-item index="/goodslist">商品库列表</el-menu-item>
+                  <el-menu-item index="/goodsgroup">商品分组</el-menu-item>
+                  <el-menu-item index="/goodstag">商品标签</el-menu-item>
+                  <el-menu-item index="/goodscomment">商品评论</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="3">
@@ -62,7 +64,7 @@
                   <span>库存</span>
                 </template>
                 <el-menu-item-group>
-                  <router-link :to="{name:'inventory'}"><el-menu-item index="4-1">门店库存</el-menu-item></router-link>
+                  <el-menu-item index="/inventory">门店库存</el-menu-item>
                   <el-menu-item index="4-2">入库单</el-menu-item>
                   <el-menu-item index="4-3">出库单</el-menu-item>
                   <el-menu-item index="4-4">库存查询</el-menu-item>
@@ -138,9 +140,12 @@ export default {
     name:'sidbar',
     data(){
         return {
-           circleUrl:'' 
+           adminName:'atli',
+           circleUrl:'/img/timg.jpg' ,
+           activeIndex:this.$route.path,
+           openeds:['']
         }
-    }
+    },
 }
 </script>
 

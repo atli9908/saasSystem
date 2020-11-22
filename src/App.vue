@@ -100,6 +100,12 @@ span{
 .my-table th{
     color: #333;
 }
+.my-table input{
+    font-size: 12px;
+    color: #666;
+    border:0;
+    width:50px;
+}
 .my-table div{
     font-size: 12px;
 }

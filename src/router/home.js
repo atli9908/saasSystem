@@ -8,32 +8,32 @@ export default {
     {
       path: "/",
       name: "overview",
-      component: ()=> import("../components/overview.vue")
+      component: ()=> import("../views/overview.vue")
     },
     {
       path: "/goodslist",
       name: "goodsList",
-      component: ()=> import("../components/goods/goods_list.vue")
+      component: ()=> import("../views/goods/goods_list.vue")
     },
     {
       path: "/goodsgroup",
       name: "goodsGroup",
-      component: ()=> import("../components/goods/goods_group.vue")
+      component: ()=> import("../views/goods/goods_group.vue")
     },
     {
       path: '/goodstag',
       name: 'goodsTag',
-      component: ()=> import("../components/goods/goods_tag.vue")
+      component: ()=> import("../views/goods/goods_tag.vue")
     },
     {
       path:'/goodscomment',
       name:'goodsComment',
-      component: ()=> import("../components/goods/goods_comment.vue")
+      component: ()=> import("../views/goods/goods_comment.vue")
     },
     {
       path:"/inventory",
       name:"inventory",
-      component: ()=> import("../components/inventory/inventory.vue")
+      component: ()=> import("../views/inventory/inventory.vue")
     }
 
   ]   
