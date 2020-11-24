@@ -114,7 +114,7 @@ span{
     margin-right: 12px;
     color: steelblue;
 }
-/* 统一下拉列表样式 */
+/* select下拉框样式 */
 .selects{
     width: 100px;
 }

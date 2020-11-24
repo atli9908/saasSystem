@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .my-page{
     background-color: rgb(255, 255, 255);
     border-radius: 10px 10px 0px 0px;

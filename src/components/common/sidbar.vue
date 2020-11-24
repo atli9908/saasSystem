@@ -41,10 +41,10 @@
                   <span>商品</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="/goodslist">商品库列表</el-menu-item>
-                  <el-menu-item index="/goodsgroup">商品分组</el-menu-item>
-                  <el-menu-item index="/goodstag">商品标签</el-menu-item>
-                  <el-menu-item index="/goodscomment">商品评论</el-menu-item>
+                  <el-menu-item index="/goodsList">商品库列表</el-menu-item>
+                  <el-menu-item index="/goodsGroup">商品分组</el-menu-item>
+                  <el-menu-item index="/goodsTag">商品标签</el-menu-item>
+                  <el-menu-item index="/goodsComment">商品评论</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="3">
@@ -65,7 +65,7 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="/inventory">门店库存</el-menu-item>
-                  <el-menu-item index="4-2">入库单</el-menu-item>
+                  <el-menu-item index="/godownEntry">入库单</el-menu-item>
                   <el-menu-item index="4-3">出库单</el-menu-item>
                   <el-menu-item index="4-4">库存查询</el-menu-item>
                 </el-menu-item-group>

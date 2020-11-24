@@ -300,10 +300,6 @@ export default {
 .jianju{
     margin-bottom: 10px;
 }
-/* 弹框*/
-.el-dialog__body{
-    padding: 0 20px;
-}
 .el-dialog__title{
     font-size: 14px;
     font-weight: 600;
