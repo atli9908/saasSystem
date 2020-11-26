@@ -53,9 +53,9 @@
                   <span>订单</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="3-1">发货管理</el-menu-item>
+                  <el-menu-item index="3-1">全部订单</el-menu-item>
                   <el-menu-item index="3-2">售后订单</el-menu-item>
-                  <el-menu-item index="3-3">历史订单</el-menu-item>
+                  <el-menu-item index="3-3">发货管理</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="4">
@@ -66,7 +66,7 @@
                 <el-menu-item-group>
                   <el-menu-item index="/inventory">门店库存</el-menu-item>
                   <el-menu-item index="/godownEntry">入库单</el-menu-item>
-                  <el-menu-item index="4-3">出库单</el-menu-item>
+                  <el-menu-item index="/godownOut">出库单</el-menu-item>
                   <el-menu-item index="4-4">库存查询</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
@@ -143,7 +143,7 @@ export default {
            adminName:'atli',
            circleUrl:'/img/timg.jpg' ,
            activeIndex:this.$route.path,
-           openeds:['']
+           openeds:[]
         }
     },
 }

@@ -1,9 +1,9 @@
 <template>
     <div class="bg-purple">
-        <h5 class="view_title">入库单</h5>
+        <h5 class="view_title">出库单</h5>
         <div class="content-wrap">
-            <div class="bg-purple jianju box1">
-                <span>入库时间</span>
+            <div class="bg-purple box1 jianju">
+                <span class="title">单据日期</span>
                 <el-date-picker
                 size="mini"
                 v-model="dateValue"
@@ -15,16 +15,7 @@
                 end-placeholder="结束日期"
                 :picker-options="pickerOptions">
                 </el-date-picker>
-
-                <el-select v-model="value" placeholder="供应商名称" size="mini" class="at_select">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-                <el-select v-model="value" placeholder="入库类型" size="mini" class="at_select">
+                <el-select v-model="value" placeholder="出库明细" size="mini" class="at_select">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -40,26 +31,19 @@
                     :value="item.value">
                     </el-option>
                 </el-select>
-                <el-select v-model="value" placeholder="入库单号" size="mini" class="at_select">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-
-                <el-input placeholder="请输入内容" v-model="searchText" class="input-with-select" size="mini">
+                <el-input v-model="searchText" class="input-with-select" size="mini">
+                    <el-select v-model="select" slot="prepend" placeholder="请选择">
+                    <el-option label="出库单号" value="1"></el-option>
+                    <el-option label="订单号" value="2"></el-option>
+                    <el-option label="用户电话" value="3"></el-option>
+                    </el-select>
                     <el-button slot="append" style="padding:10px">搜索</el-button>
                 </el-input>
-
-                <div class="btns">
-                    <router-link :to='{path:"/cg_godownEntry"}'><el-button size="mini">采购入库</el-button></router-link>
-                    <el-button size="mini">调拨入库</el-button>
-                    <el-button size="mini">退货入库</el-button>
-                    <el-button size="mini">其它入库</el-button>
+                <div class="btn">
+                    <el-button size="mini">新建出库</el-button>
                 </div>
             </div>
+            <!-- 表格数据 -->
             <div class="bg-purple my-table">
                 <el-table
                 :data="tableData"
@@ -98,7 +82,6 @@
                 </el-table>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -133,7 +116,7 @@ export default {
             }
           }]
         },
-        dateValue: '',
+        dateValue:'',
         options: [{
           value: '选项1',
           label: '黄金糕'
@@ -143,8 +126,9 @@ export default {
         }],
         value:'',
         searchText:'',
-        tableData: []
-      };
+        select:'1',
+        tableData:[]
+      }
     }
 }
 </script>
@@ -153,22 +137,25 @@ export default {
 .box1{
     padding: 20px;
 }
-.box1 div{
-    margin:0 4px
+.box1 .btn{
+    margin-top: 20px;
 }
-.box1 .btns{
-    margin-top:20px;
+.box1 .at_select{
+    margin-left: 10px;
 }
-.btns a{
-    margin-right: 10px;
+.box1 .title{
+    margin: 4px;
 }
 .el-date-editor{
     width: 220px;
 }
-.at_select{
-    width: 120px;
+.el-select {
+    width: 100px;
+    font-size: 12px;
 }
 .input-with-select{
-    width: 200px;
+    position: absolute;
+    right: 100px;
+    width: 300px;
 }
 </style>

@@ -39,6 +39,19 @@ export default {
       path:"/godownEntry",
       name:"godownEntry",
       component: ()=> import("../views/inventory/godownEntry.vue")
+    },
+    {
+      path:"/cg_godownEntry",
+      name:"cg_godownEntry",
+      component: ()=> import("../views/inventory/cg_godownEntry.vue"),
+      meta:{
+        title:"采购入库"
+      }
+    },
+    {
+      path:"/godownOut",
+      name:'godownOut',
+      component: ()=> import("../views/inventory/godownOut.vue")
     }
   ]   
 }
