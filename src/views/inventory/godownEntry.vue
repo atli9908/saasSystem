@@ -162,9 +162,6 @@ export default {
 .btns a{
     margin-right: 10px;
 }
-.el-date-editor{
-    width: 220px;
-}
 .at_select{
     width: 120px;
 }

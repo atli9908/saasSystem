@@ -31,7 +31,7 @@
                     :value="item.value">
                     </el-option>
                 </el-select>
-                <el-input v-model="searchText" class="input-with-select" size="mini">
+                <el-input v-model="searchText" class="input-with-select" size="mini" placeholder="请输入">
                     <el-select v-model="select" slot="prepend" placeholder="请选择">
                     <el-option label="出库单号" value="1"></el-option>
                     <el-option label="订单号" value="2"></el-option>
@@ -154,8 +154,7 @@ export default {
     font-size: 12px;
 }
 .input-with-select{
-    position: absolute;
-    right: 100px;
+    float: right;
     width: 300px;
 }
 </style>

@@ -10,7 +10,7 @@ export default {
       name: "overview",
       component: ()=> import("../views/overview.vue")
     },
-    {
+    {//商品
       path: "/goodsList",
       name: "goodsList",
       component: ()=> import("../views/goods/goods_list.vue")
@@ -30,7 +30,12 @@ export default {
       name:'goodsComment',
       component: ()=> import("../views/goods/goods_comment.vue")
     },
-    {
+    {//订单
+      path:'/allOrders',
+      name:'allOrders',
+      component: ()=> import("../views/order/allOrders.vue")
+    },
+    {//库存
       path:"/inventory",
       name:"inventory",
       component: ()=> import("../views/inventory/inventory.vue")

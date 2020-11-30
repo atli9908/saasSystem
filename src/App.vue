@@ -48,13 +48,35 @@ span{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
-/* 搜索表单样式 */
+/* input下拉框 */
+.input-with-select .el-select{
+    width: 100px;
+    font-size: 12px;
+}
+/* input3合1 */
 .input-with-select .el-input-group__prepend {
     background-color: #fff;
     color: #000;
 }
-
+/* input搜索按钮 */
+.el-input-group__append .el-button{
+    padding: 10px;
+    width: 10px;
+}
+/* 日期选择器宽度 */
+.el-date-editor{
+    width: 220px !important;
+}
+.el-input-group__append{
+    background-color: white;
+}
+.el-input__inner{
+  font-size: 12px !important;
+}
+/* 对话框内容区域外边距 */
+.el-dialog__body{
+    padding: 10px 20px !important;
+}
 /* 盒子样式 */
 .bg-purple{
   background-color: rgb(255, 255, 255);

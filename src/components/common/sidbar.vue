@@ -53,7 +53,7 @@
                   <span>订单</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="3-1">全部订单</el-menu-item>
+                  <el-menu-item index="/allOrders">全部订单</el-menu-item>
                   <el-menu-item index="3-2">售后订单</el-menu-item>
                   <el-menu-item index="3-3">发货管理</el-menu-item>
                 </el-menu-item-group>

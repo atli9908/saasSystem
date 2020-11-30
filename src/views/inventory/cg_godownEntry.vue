@@ -160,13 +160,13 @@ export default {
     data() {
       return {
         dialogFormVisible:false,
-        value:"",
+        value:"选项1",
         options: [{
           value: '选项1',
-          label: '黄金糕'
+          label: '单品分类'
         }, {
           value: '选项2',
-          label: '双皮奶'
+          label: '单品名称'
         }],
         textarea:"",
         input:"",
@@ -177,7 +177,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+/deep/.el-dialog{
+    border-radius: 10px;
+}
 .dialog-wrap{
     overflow: hidden;
 }
@@ -207,6 +210,15 @@ export default {
 .dialog-wrap .my-pager{
     margin-top: 10px;
     float: right;
+}
+/deep/.my-pager li{
+    margin: 0 5px;
+    min-width: 25px;
+}
+/deep/.el-pagination button{
+    margin: 0 5px;
+    min-width: 25px;
+    padding: 0;
 }
 .wrap{
     padding: 20px;

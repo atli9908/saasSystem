@@ -97,7 +97,7 @@
                             <el-option label="订单号" value="2"></el-option>
                             <el-option label="用户电话" value="3"></el-option>
                         </el-select>
-                        <el-button slot="append" style="padding:10px">搜索</el-button>
+                        <el-button slot="append">搜索</el-button>
                     </el-input>
                     <el-button plain size="small" class="shaix-btn" @click="dialogFormVisible = true">高级筛选</el-button>
                 </div>
@@ -308,10 +308,6 @@ export default {
     border: 1px solid rgb(83, 163, 255);
     color:rgb(83, 163, 255);
 }
-.el-select {
-    width: 100px;
-    font-size: 12px;
-}
 .el-input__inner{
     font-size: 12px;
 }
@@ -338,6 +334,7 @@ export default {
 }
 .gropdiv{
     height: 50px;
+    line-height: 50px;
 }
 .tag-title{
     color: #333;
