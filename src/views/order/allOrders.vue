@@ -89,7 +89,7 @@
                         <th width="40px">
                             <el-checkbox :indeterminate="isIndeterminate" @change="handleCheckAllChange" v-model="checkAll"/>
                         </th>
-                        <th width="320px">商品信息</th>
+                        <th width="350px">商品信息</th>
                         <th width="160px">实收金额</th>
                         <th width="180px">客户信息</th>
                         <th width="200px">配送及支付方式</th>
@@ -108,13 +108,13 @@
                     <td><span>下单时间 : {{item.date}}</span></td>
                     <td><span>渠道类型 : {{item.channel}}</span></td>
                     <td><span>服务门店 : {{item.shop}}</span></td>
-                    <td class="right"><router-link :to="{path:'/allOrders/orderDetail'}" href="#">订单详情<i class="el-icon-collection-tag"></i></router-link></td>
+                    <td class="right"><router-link :to="{name:'orderDetail',params:{id:item.ID}}" href="#">订单详情<i class="el-icon-collection-tag"></i></router-link></td>
                 </div>
                 <div class="t-border"></div>
                 <tbody class="my-tbody">
                     <tr>
                         <td width="40px"></td>
-                        <td width="320px">
+                        <td width="350px">
                             <div>
                                 <img :src="item.imgSrc" alt="">
                             </div>

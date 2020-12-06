@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-purple">
+    <div class="bg-purple">  
         <el-dialog title="高级筛选" :visible.sync="dialogFormVisible">
             <div class="gropdiv">
                 <span class="tag-title">商品类型</span>
@@ -52,7 +52,7 @@
                     </el-col> 
                 </el-row>
             </div>
-            <div class="gropdiv">
+            <div class="gropdiv row7">
                 <el-row>
                     <el-col :span="8">
                         <span class="tag-title">商品分组</span>
@@ -60,23 +60,20 @@
                             <el-option label="区域一" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
                         </el-select>
-    
                     </el-col>
                     <el-col :span="8">
                         <span class="tag-title">商品属性</span>
                         <el-select  v-model="value1" placeholder="请选择" size="mini">
                             <el-option label="区域一" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-    
+                        </el-select>   
                     </el-col> 
                     <el-col :span="8">
                         <span class="tag-title">商品服务</span>
                         <el-select  v-model="value1" placeholder="请选择" size="mini">
                             <el-option label="区域一" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-    
+                        </el-select>   
                     </el-col>  
                 </el-row>
             </div>
@@ -336,10 +333,13 @@ export default {
     height: 50px;
     line-height: 50px;
 }
+.el-select{
+    width: 120px;
+}
 .tag-title{
     color: #333;
     font-weight: 600;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .my-tag{
     padding: 10px 15px;

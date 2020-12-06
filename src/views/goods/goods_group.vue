@@ -1,7 +1,7 @@
 <template>
     <div class="bg-purple">
         <!-- 新增分组对话框 -->
-        <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='30%'>
+        <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='40%'>
             <el-form :model="form" label-width="120px" :rules="rules">
                 <el-form-item label="级别">
                     <el-radio-group v-model="form.grade" @change="radioChange()">

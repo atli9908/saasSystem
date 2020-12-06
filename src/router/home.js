@@ -34,13 +34,11 @@ export default {
       path:'/allOrders',
       name:'allOrders',
       component: ()=> import("../views/order/allOrders.vue"),
-      children:[
-        {
-          path:'/allOrders/orderDetail',
-          name:'orderDetail',
-          component:()=> import("../views/order/orderDetail.vue")
-        }
-      ]
+    },
+    {
+      path:'/allOrders/orderDetail/:id',
+      name:'orderDetail',
+      component:()=> import("../views/order/orderDetail.vue")
     },
     {//库存
       path:"/inventory",
