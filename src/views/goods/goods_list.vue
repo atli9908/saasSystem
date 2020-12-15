@@ -105,11 +105,11 @@
                         <div><el-button size="mini">添加标签</el-button></div>
                     </div>
                 </div>
-                <hr class="aline"/>
+                <el-divider></el-divider>
                 <div>
                     <div class="spbq">
                         <div style="line-height:25px"><span>快捷操作</span></div>
-                        <div><el-button size="mini">新增商品</el-button></div>
+                        <div><router-link :to="{name:'addGoods'}"><el-button size="mini">新增商品</el-button></router-link></div>
                         <div><el-button size="mini">批量可售</el-button></div>
                         <div><el-button size="mini">批量禁售</el-button></div>
                         <div><el-button size="mini">修改分组</el-button></div>
@@ -218,7 +218,6 @@
 </template>
 
 <script>
-import myPage from '../../components/common/myPage';
 export default {
     data(){
         return {
@@ -285,9 +284,6 @@ export default {
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-    },
-    components:{
-        myPage
     }
 }
 </script>

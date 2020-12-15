@@ -76,7 +76,7 @@
                   <span>客户</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="5-1">全部客户</el-menu-item>
+                  <el-menu-item index="/allCustomers">全部客户</el-menu-item>
                   <el-menu-item-group title="权益管理">
                     <el-menu-item index="5-2">会员设置</el-menu-item>
                     <el-menu-item index="5-3">会员权益</el-menu-item>

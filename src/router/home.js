@@ -26,6 +26,11 @@ export default {
       component: ()=> import("../views/goods/goods_tag.vue")
     },
     {
+      path:'/goodsList/addGoods',
+      name:'addGoods',
+      component:()=> import('../views/goods/addGoods.vue')
+    },
+    {
       path:'/goodsComment',
       name:'goodsComment',
       component: ()=> import("../views/goods/goods_comment.vue")
@@ -62,6 +67,12 @@ export default {
       path:"/godownOut",
       name:'godownOut',
       component: ()=> import("../views/inventory/godownOut.vue")
+    },
+    //客户
+    {
+      path:'/allCustomers',
+      name:'allCustomers',
+      component:()=> import("../views/customers/allCustomers.vue")
     }
   ]   
 }

@@ -90,9 +90,7 @@
 </template>
 
 <script>
-import myPage from '../../components/common/myPage';
 export default {
-    components: { myPage },
     data(){
          return {
             multipleSelection:[],

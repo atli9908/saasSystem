@@ -104,9 +104,8 @@ span{
   border-radius: 3px;
 }
 /* 分割线 */
-.aline{
-  border: 0.3px solid #ccc;
-  margin: 20px 0;
+.el-divider{
+    margin: 16px 0 !important;
 }
 /* 页面小标题 */
 .view_title{
@@ -114,7 +113,7 @@ span{
 }
 /* 小标题下内容包裹区 */
 .content-wrap{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(245, 245, 245);
     padding: 8px;
     border-radius: 5px;
 }
