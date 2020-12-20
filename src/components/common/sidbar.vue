@@ -119,10 +119,10 @@
                   <span>设置</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="8-1">商户信息</el-menu-item>
+                  <el-menu-item index="/shopMsg">商户信息</el-menu-item>
                   <el-menu-item-group title="系统设置">
                     <el-menu-item index="8-2">网店设置</el-menu-item>
-                    <el-menu-item index="8-3">账号权限</el-menu-item>
+                    <el-menu-item index="/account">账号权限</el-menu-item>
                     <el-menu-item index="8-4">操作日志</el-menu-item>
                   </el-menu-item-group>
                 </el-menu-item-group>

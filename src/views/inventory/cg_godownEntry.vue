@@ -214,6 +214,8 @@ export default {
 /deep/.my-pager li{
     margin: 0 5px;
     min-width: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ddd;
 }
 /deep/.el-pagination button{
     margin: 0 5px;

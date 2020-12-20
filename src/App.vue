@@ -119,7 +119,7 @@ span{
 }
 /* 表格样式 */
 .my-table th{
-    color: #333;
+    color: #444;
 }
 .my-table input{
     font-size: 12px;

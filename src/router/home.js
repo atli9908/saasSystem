@@ -73,6 +73,17 @@ export default {
       path:'/allCustomers',
       name:'allCustomers',
       component:()=> import("../views/customers/allCustomers.vue")
+    },
+    //设置
+    {
+      path:'/shopMsg',
+      name:'shopMsg',
+      component:()=> import("../views/setting/shopMsg.vue")
+    },
+    {
+      path:'/account',
+      name:'account',
+      component:()=> import("../views/setting/account.vue")
     }
   ]   
 }
