@@ -4,9 +4,14 @@
             <button :class="accountTab" value="account" @click="handleClick">账号管理</button>
             <button :class="postTab" value="post" @click="handleClick">岗位管理</button>
         </div>
-        <div class="content-wrap">
+        <!-- 权限管理对话框 -->
+        <el-dialog title="权限明细" :visible.sync="dialogTableVisible" width="500px">
+            <my-dialog/>
+        </el-dialog>
+        <!-- 账号管理 -->
+        <div class="content-wrap" v-if="viewShow">
             <div class="bg-purple jianju">
-                <el-button>新增子账号</el-button>
+                <el-button @click="$router.push({name:'addAccount'})">新增子账号</el-button>
                 <el-button>导入账号</el-button>
                 <el-button>导出账号</el-button>
                 <el-button>批量编辑账号</el-button>
@@ -71,7 +76,7 @@
                             label="操作">
                                 <template>
                                     <a href="#">编辑</a>
-                                    <a href="#">权限明细</a>
+                                    <a href="#" @click="dialogTableVisible=true">权限明细</a>
                                     <a href="#">删除</a>
                                 </template>
                             </el-table-column>
@@ -80,16 +85,68 @@
                 </el-row>
             </div>
         </div>
+        <!-- 岗位管理 -->
+        <div class="content-wrap" v-else="viewShow">
+            <div class="bg-purple jianju">
+                <el-button>新增岗位</el-button>
+                <el-button>删除岗位</el-button>
+                <el-input placeholder="请输入岗位名称" v-model="text" class="input-with-select right-input">
+                    <el-button slot="append">搜索</el-button>
+                </el-input>
+            </div>
+            <div>
+                <el-table
+                    ref="multipleTable"
+                    :data="tableData2"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    class="my-table"
+                    :row-class-name="tableRowClassName"
+                    @selection-change="handleSelectionChange">
+                    <el-table-column
+                    type="selection"
+                    width="55">
+                    </el-table-column>
+                    <el-table-column
+                    prop="title"
+                    label="岗位名称"
+                    width="200">
+                    </el-table-column>
+                    <el-table-column
+                    prop="type"
+                    label="岗位类型"
+                    width="180">
+                    </el-table-column>
+                    <el-table-column
+                    prop="num"
+                    label="使用账号数量"
+                    width="160">
+                    </el-table-column>
+                    <el-table-column
+                    label="操作">
+                        <template>
+                            <router-link :to="{name:'setRights'}">编辑商家权限</router-link>
+                            <a href="#">编辑门店权限</a>
+                            <a href="#">编辑门店权限</a>
+                            <a href="#">删除</a>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
         <my-page :data="{tableData,multipleSelection}"/>
     </div>
 </template>
 
 <script>
-import myPage from '../../components/common/myPage.vue';
+import myDialog from "./rightsDialog";
 export default {
-  components: { myPage },
+    components:{
+        myDialog
+    },
     data(){
         return {
+            dialogTableVisible:false,
             activeName:'account',
             accountTab:'activeTab',
             postTab:'defaultTab',
@@ -101,7 +158,11 @@ export default {
                 {account:{name:'李大大',phone:'17773229716'},department:['生态居家官方旗舰店(商家)','智慧清洁体验馆(门店)'],post:['商家管理员','门店管理员','自提点管理员']},
                 {account:{name:'李大大',phone:'17773229716'},department:['生态居家官方旗舰店(商家)','智慧清洁体验馆(门店)'],post:['商家管理员','门店管理员','自提点管理员']}
             ],
-            multipleSelection: []
+            tableData2:[
+                {title:'门店',type:'商家',num:'2'}
+            ],
+            multipleSelection: [],
+            viewShow:true
         }
     },
     methods:{
@@ -109,9 +170,11 @@ export default {
            if(ev.target.value==="account"){
                this.accountTab = "activeTab";
                this.postTab = "defaultTab";
+               this.viewShow = true;
            }else if(ev.target.value==="post"){
                this.accountTab = "defaultTab";
                this.postTab = "activeTab";
+               this.viewShow = false;
            }
        },
        tableRowClassName({row,rowIndex}){
@@ -175,5 +238,9 @@ dd{
 }
 /deep/.el-table .rowStyle {
     background: rgb(245, 245, 245);
-  }
+}
+.right-input{
+    float: right;
+    width: 250px;
+}
 </style>

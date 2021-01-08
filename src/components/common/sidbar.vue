@@ -24,7 +24,7 @@
                 <ul>
                   <a href="#">个人中心</a>
                   <a href="#">|</a>
-                  <a href="#">退出</a>
+                  <a href="#" @click="logout()">退出</a>
                 </ul>   
               </div>
             </div>
@@ -78,12 +78,12 @@
                 <el-menu-item-group>
                   <el-menu-item index="/allCustomers">全部客户</el-menu-item>
                   <el-menu-item-group title="权益管理">
-                    <el-menu-item index="5-2">会员设置</el-menu-item>
-                    <el-menu-item index="5-3">会员权益</el-menu-item>
+                    <el-menu-item index="5-2" disabled>会员设置</el-menu-item>
+                    <el-menu-item index="5-3" disabled>会员权益</el-menu-item>
                   </el-menu-item-group>
                   <el-menu-item-group title="资产管理">
-                    <el-menu-item index="5-4">积分管理</el-menu-item>
-                    <el-menu-item index="5-5">储值管理</el-menu-item>
+                    <el-menu-item index="5-4" disabled>积分管理</el-menu-item>
+                    <el-menu-item index="5-5" disabled>储值管理</el-menu-item>
                   </el-menu-item-group>
                 </el-menu-item-group>
               </el-submenu>
@@ -93,7 +93,7 @@
                   <span>营销</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="6-1">营销中心</el-menu-item>
+                  <el-menu-item index="6-1" disabled>营销中心</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="7">
@@ -103,13 +103,13 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item-group title="店铺概况">
-                    <el-menu-item index="7-1">数据概览</el-menu-item>
+                    <el-menu-item index="/overview">数据概览</el-menu-item>
                   </el-menu-item-group>
                   <el-menu-item-group title="商品分析">
-                    <el-menu-item index="7-2">商品概览</el-menu-item>
+                    <el-menu-item index="7-2" disabled>商品概览</el-menu-item>
                   </el-menu-item-group>
                   <el-menu-item-group title="客群分析">
-                    <el-menu-item index="7-3">属性分析</el-menu-item>
+                    <el-menu-item index="/property">属性分布</el-menu-item>
                   </el-menu-item-group>
                 </el-menu-item-group>
               </el-submenu>
@@ -121,9 +121,9 @@
                 <el-menu-item-group>
                   <el-menu-item index="/shopMsg">商户信息</el-menu-item>
                   <el-menu-item-group title="系统设置">
-                    <el-menu-item index="8-2">网店设置</el-menu-item>
+                    <el-menu-item index="8-2" disabled>网店设置</el-menu-item>
                     <el-menu-item index="/account">账号权限</el-menu-item>
-                    <el-menu-item index="8-4">操作日志</el-menu-item>
+                    <el-menu-item index="8-4" disabled>操作日志</el-menu-item>
                   </el-menu-item-group>
                 </el-menu-item-group>
               </el-submenu>
@@ -146,6 +146,12 @@ export default {
            openeds:[]
         }
     },
+    methods:{
+      logout(){
+        localStorage.removeItem('user');
+        this.$router.push({path:'/login'});
+      }
+    }
 }
 </script>
 

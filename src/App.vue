@@ -97,10 +97,11 @@ span{
 }
 /* 设置全局滚动条样式 */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 0px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(211, 211, 211);
+  width: 6px;
+  background-color: rgba(211, 211, 211,0.2);
   border-radius: 3px;
 }
 /* 分割线 */

@@ -6,25 +6,72 @@
                 <span class="left">登录</span>
                 <span class="right">注册<i class="el-icon-caret-right"></i></span>
             </div>
-            <div class="user Text">
-                <span>手机号码</span>
-                <span>+86</span>
-                <i class="el-icon-arrow-down icon"></i>
-                <input type="text" class="ipt" placeholder="注册时填写的手机号">
-            </div>
-            <div class="pwd Text">
-                <span>登录密码</span>
-                <input type="text" class="ipt" placeholder="请输入密码">
-            </div>
+            <form action="#">
+                <div class="user Text">
+                    <span>手机号码</span>
+                    <span>+86</span>
+                    <i class="el-icon-arrow-down icon"></i>
+                    <input type="text" v-model="username" class="ipt" placeholder="注册时填写的手机号" autocomplete="on">
+                </div>
+                <div class="pwd Text">
+                    <span>登录密码</span>
+                    <input type="password" v-model="pwd" class="ipt" placeholder="请输入密码" autocomplete="on">
+                </div>
+            </form>
             <div style="margin:20px 10px">
                 <a href="#" class="right">忘记密码？</a>
             </div>
             <div class="loginbtn">
-                <button>登录</button>
+                <button @click.top="handLogin()">登录</button>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+            username:'',
+            pwd:''
+        }
+    },
+    methods:{
+        async handLogin(){
+            if(this.username===""){
+                this.$message({
+                    message: '请输入手机号码',
+                    type: 'warning'
+                });
+            }else if(this.pwd===""){
+                this.$message({
+                    message: '请输入密码',
+                    type: 'warning'
+                });
+            }else{
+                this.$axios({
+                    method:'post',
+                    url:'http://localhost:8081/login',
+                    data:{
+                        username:this.username,
+                        pwd:this.pwd
+                    }
+                }).then(res=>{
+                    let token = res.data.token;
+                    if(res.data.status===200){
+                        localStorage.setItem('user',token)
+                        this.$message({
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        this.$router.push({path:'/'})
+                    }
+                })
+            }
+        }
+    }
+}
+</script>
 
 <style scoped>
 .bg{

@@ -7,8 +7,8 @@ export default {
   children: [
     {
       path: "/",
-      name: "overview",
-      component: ()=> import("../views/overview.vue")
+      name: "index",
+      component: ()=> import("../views/index.vue")
     },
     {//商品
       path: "/goodsList",
@@ -84,6 +84,27 @@ export default {
       path:'/account',
       name:'account',
       component:()=> import("../views/setting/account.vue")
+    },
+    {
+      path:'/account/addAccount',
+      name:'addAccount',
+      component:()=>import("../views/setting/addAccount.vue")
+    },
+    {
+      path:'/account/setRights',
+      name:'setRights',
+      component:()=> import("../views/setting/setRights.vue")
+    },
+    //数据
+    {
+      path:'/overview',
+      name:'overview',
+      component:()=> import("../views/information/overview.vue")
+    },
+    {
+      path:'/property',
+      name:'property',
+      component:()=> import("../views/information/property .vue")
     }
   ]   
 }

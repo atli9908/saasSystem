@@ -11,8 +11,23 @@ Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
-export default new Router({
+const router =  new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [home,login]
 });
+
+//前置路由守卫
+router.beforeEach((to,form,next)=>{
+  if(localStorage.getItem('user')){
+    next()
+  }else{
+    if(to.path === '/login'){
+      next()
+    }else{
+      next({path:'/login'})
+    }
+  }
+})
+
+export default router;
