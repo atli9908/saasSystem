@@ -1,12 +1,13 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index";
-import store from "./store";
 import axios from 'axios';
 
 //全局组件
 import myPage from "./components/common/myPage.vue";
-Vue.component("myPage",myPage)
+import myAnimated from "./components/animated/integer.vue";
+Vue.component("myPage",myPage);
+Vue.component("myAnimated",myAnimated);
 
 //axios
 Vue.prototype.$axios = axios;
@@ -32,6 +33,5 @@ Vue.use(ElementUI,{size:'small'});
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount("#app");

@@ -12,7 +12,9 @@
 
       <!-- 内容 -->
       <el-main style="padding: 8px">
-        <router-view/>
+        <transition>
+          <router-view/>
+        </transition>
       </el-main>
     </el-container>
   </el-container>
@@ -71,3 +73,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-enter-active {
+  transition: all .5s ease;
+}
+.v-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.v-enter, .v-leave-to {
+  
+  opacity: 0;
+}
+</style>

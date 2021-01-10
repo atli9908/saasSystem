@@ -8,17 +8,9 @@
             <div class="bg-purple card-1">
                 <h5>上午好，管理员！</h5>
                 <el-row :gutter="50">
-                    <el-col :span="8">
-                    <a href="#">0</a>
-                    <h6>待付款订单</h6>
-                    </el-col>
-                    <el-col :span="8">
-                    <a href="#">0</a>
-                    <h6>待发货订单</h6>
-                    </el-col>
-                    <el-col :span="8">
-                    <a href="#">0</a>
-                    <h6>待处理售后</h6>
+                    <el-col :span="8" v-for="(item,i) in panelData" :key="i">
+                      <a href="#"><my-animated :value="item.result"></my-animated></a>
+                      <h6>{{item.msg}}</h6>
                     </el-col>
                 </el-row>
             </div>
@@ -117,6 +109,11 @@
 export default {
   data(){
     return {
+      panelData:[
+        {msg:'待付款订单',result:156},
+        {msg:'待发货订单',result:1024},
+        {msg:'待处理售后',result:62}
+      ],
       home_cygn:{
         title:'常用功能',
         msg:[
@@ -178,7 +175,7 @@ export default {
   text-align: center;
   padding: 40px 0;
 }
-.card-1 a{
+.card-1 a span{
   font-size: 26px !important;
   font-weight: 600;
 }
