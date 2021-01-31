@@ -51,18 +51,18 @@ export default {
             timeSelect:'ri',
             select:'1',
             informmation:[
-                {title:'实收金额',data:'2654891.561',percent:'11.50'},
-                {title:'浏览量',data:'24450454',percent:'2.06'},
-                {title:'访客量',data:'45246',percent:'5.23'},
-                {title:'访问支付转化率',data:'62',percent:'3.07'},
-                {title:'客单价',data:'1456',percent:'3.58'},
-                {title:'支付单数',data:'7824',percent:'2.30'},
-                {title:'支付人数',data:'682',percent:'2.92'},
-                {title:'复购客户数',data:'89',percent:'4.36'},
-                {title:'支付会员数',data:'106',percent:'1.30'},
-                {title:'售后退款金额',data:'782452',percent:'0.99'},
-                {title:'新增客户数',data:'412',percent:'2.78'},
-                {title:'新增会员数',data:'63',percent:'6.22'}
+                {title:'实收金额',data:2654891.561,percent:11.50},
+                {title:'浏览量',data:24450454,percent:2.06},
+                {title:'访客量',data:45246,percent:5.23},
+                {title:'访问支付转化率',data:62,percent:3.07},
+                {title:'客单价',data:1456,percent:3.58},
+                {title:'支付单数',data:7824,percent:2.30},
+                {title:'支付人数',data:682,percent:2.92},
+                {title:'复购客户数',data:89,percent:4.36},
+                {title:'支付会员数',data:106,percent:1.30},
+                {title:'售后退款金额',data:782452,percent:0.99},
+                {title:'新增客户数',data:412,percent:2.78},
+                {title:'新增会员数',data:63,percent:6.22}
             ]
         }
     },

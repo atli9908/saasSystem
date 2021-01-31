@@ -97,7 +97,7 @@ span{
 }
 /* 设置全局滚动条样式 */
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 5px;
 }
 ::-webkit-scrollbar-thumb {
   width: 6px;

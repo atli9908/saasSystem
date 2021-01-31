@@ -8,6 +8,26 @@
         <el-dialog title="权限明细" :visible.sync="dialogTableVisible" width="500px">
             <my-dialog/>
         </el-dialog>
+        <!-- 新增岗位对话框 -->
+        <el-dialog title="新增岗位" :visible.sync="postDialog">
+            <el-form :model="addPost" :rules="rules" label-width="100px">
+                <el-form-item label="岗位名称" prop="name">
+                    <el-input v-model="addPost.name"></el-input>
+                </el-form-item>
+                 <el-form-item label="权限选择" prop="auth">
+                    <el-checkbox-group v-model="addPost.auth">
+                        <el-checkbox label="商家权限" name="type"></el-checkbox>
+                        <el-checkbox label="门店权限" name="type"></el-checkbox>
+                        <el-checkbox label="区域权限" name="type"></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+            </el-form>
+            <div class="tips">说明：岗位支持同时拥有三种权限。</div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="postDialog = false">取 消</el-button>
+                <el-button type="primary" @click="postDialog = false">确 定</el-button>
+            </div>
+        </el-dialog>
         <!-- 账号管理 -->
         <div class="content-wrap" v-if="viewShow">
             <div class="bg-purple jianju">
@@ -88,7 +108,7 @@
         <!-- 岗位管理 -->
         <div class="content-wrap" v-else="viewShow">
             <div class="bg-purple jianju">
-                <el-button>新增岗位</el-button>
+                <el-button @click="postDialog = true">新增岗位</el-button>
                 <el-button>删除岗位</el-button>
                 <el-input placeholder="请输入岗位名称" v-model="text" class="input-with-select right-input">
                     <el-button slot="append">搜索</el-button>
@@ -147,6 +167,7 @@ export default {
     data(){
         return {
             dialogTableVisible:false,
+            postDialog:false,
             activeName:'account',
             accountTab:'activeTab',
             postTab:'defaultTab',
@@ -161,6 +182,15 @@ export default {
             tableData2:[
                 {title:'门店',type:'商家',num:'2'}
             ],
+            addPost:{
+                name:'',
+                auth:[],
+            },
+            rules: {
+                name: [
+                    { required: true, message: '请输入岗位名称', trigger: 'blur' },
+                ],
+            },
             multipleSelection: [],
             viewShow:true
         }
@@ -191,6 +221,17 @@ export default {
 </script>
 
 <style scoped lang="less">
+/deep/.el-form-item__label{
+    font-size: 12px;
+}
+/deep/.el-checkbox__label{
+    font-size: 12px;
+}
+.tips{
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 50px;
+}
 .tab_div{
     margin: 10px 0;
 }

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import asyncRouter from "@/router/asyncRouter"
 export default {
     data(){
         return{
@@ -51,7 +52,7 @@ export default {
             }else{
                 this.$axios({
                     method:'post',
-                    url:'http://localhost:8081/login',
+                    url:'/login',
                     data:{
                         username:this.username,
                         pwd:this.pwd
@@ -60,11 +61,14 @@ export default {
                     let token = res.data.token;
                     if(res.data.status===200){
                         localStorage.setItem('user',token)
+                        let role = res.data.role;
+                        this.$store.commit('GET_USERROLE',role);
+                        this.$store.dispatch('generateRouter');
                         this.$message({
                             message: res.data.msg,
                             type: 'success'
                         });
-                        this.$router.push({path:'/'})
+                        this.$router.replace({path:'/'})
                     }
                 })
             }

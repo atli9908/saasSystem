@@ -136,16 +136,16 @@
                 </div>
             </div>
 
-            <div class="bg-purple" v-for="(item,index) in primaryGroup" :key="item.title">
+            <div class="bg-purple" v-for="(item,index) in primaryGroup" :key="item.id">
                 <div class="thead" ref="theads" @click="clickShow(index)">
                     <el-row>
                         <el-col :span="14">
                             <div>
                                 <i :class="item.sicon"></i>
-                                <span>{{item.title}}</span>
+                                <span>{{item.label}}</span>
                             </div>
                         </el-col>
-                        <el-col :span="5">
+                        <el-col :span="4">
                             <div @click.stop="">
                                 <span>分组显示 </span>
                                 <el-switch
@@ -156,35 +156,33 @@
                                 </el-switch>
                             </div>
                         </el-col>
-                        <el-col :span="5">
+                        <el-col :span="6">
                             <div @click.stop="" class="caoz-a">
                                 <a href="#" @click="dialogFormVisible = true;form.region=index">新增二级分组</a>
                                 <a href="#">编辑</a>
-                                <a href="#">删除</a>
+                                <a href="#" @click="removeRow(item.value)">删除</a>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
                 <div class="tbody" v-if="item.showTbody">
-                    <el-row v-for="subItem in item.subGroup" :key="subItem.subTitle">
+                    <el-row v-for="child in item.children" :key="child.id">
                         <el-col :span="7">
                             <div class="imgTitle">
-                                <img :src="subItem.imgsrc" alt="">
-                                <span> {{subItem.subTitle}}</span>
+                                <img :src="child.imgsrc" alt="">
+                                <span> {{child.label}}</span>
                             </div>
                         </el-col>
-
                         <el-col :span="6">
                             <div>
                                 <span>商品数量：<a href="#">5</a> </span>
                             </div>
-                        </el-col>
-                        
+                        </el-col>      
                         <el-col :span="5">
                             <div>
                                 <span>显示分组 </span>
                                 <el-switch
-                                v-model="subItem.status"
+                                v-model="child.status"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
                                 </el-switch>
@@ -193,7 +191,7 @@
                         <el-col :span="6">
                             <div class="caoz-a">
                                 <a href="#">编辑</a>
-                                <a href="#">删除</a>
+                                <a href="#" @click="removeChildRow(child.value)">删除</a>
                             </div>
                         </el-col>
                     </el-row>
@@ -236,26 +234,30 @@ export default {
             sicon:'el-icon-caret-bottom',
             primaryGroup:[
                 {
-                    title:'洗家电器',
+                    id:'1',
+                    label:'洗家电器',
+                    value:'xjdq',
                     status:true,
                     showTbody:true,
                     sicon:'el-icon-caret-bottom',
-                    subGroup:[
-                        {imgsrc:'/img/1.png',subTitle:'擦地机',status:true},
-                        {imgsrc:'/img/1.png',subTitle:'吸尘器',status:true},
-                        {imgsrc:'/img/1.png',subTitle:'蒸汽清洗机',status:false},
-                        {imgsrc:'/img/1.png',subTitle:'配件',status:false},
+                    children:[
+                        {id:'1',imgsrc:'/img/1.png',label:'擦地机',value:'cdj',status:true},
+                        {id:'2',imgsrc:'/img/1.png',label:'吸尘器',value:'xcq',status:true},
+                        {id:'3',imgsrc:'/img/1.png',label:'蒸汽清洗机',value:'zqqxj',status:false},
+                        {id:'4',imgsrc:'/img/1.png',label:'配件',value:'xjpj',status:false},
                     ]
                 },
                 {
-                    title:'美容清洗',
+                    id:'2',
+                    label:'美容清洗',
+                    value:'mrqx',
                     status:true,
                     showTbody:true,
                     sicon:'el-icon-caret-bottom',
-                    subGroup:[
-                        {imgsrc:'/img/1.png',subTitle:'高压清洗机',status:false},
-                        {imgsrc:'/img/1.png',subTitle:'吸尘器',status:false},
-                        {imgsrc:'/img/1.png',subTitle:'配件',status:false}
+                    children:[
+                        {id:'1',imgsrc:'/img/1.png',label:'高压清洗机',value:'gyqxj',status:false},
+                        {id:'2',imgsrc:'/img/1.png',label:'清洁剂',value:'qjj',status:false},
+                        {id:'3',imgsrc:'/img/1.png',label:'配件',value:'mrpj',status:false}
                     ]
                 },
             ]
@@ -279,20 +281,33 @@ export default {
                 this.form.showOne = false;
             }
         },
-        changeSwitch(row){
-           
-                if(this.primaryGroup[row].status){
-                    this.primaryGroup[row].subGroup.forEach(item=>{
-                        item.status=true;
-                    })
-                }else{
-                    this.primaryGroup[row].subGroup.forEach(item=>{
-                        item.status=false;
+        changeSwitch(row){      
+            if(this.primaryGroup[row].status){
+                this.primaryGroup[row].children.forEach(item=>{
+                    item.status=true;
+                })
+            }else{
+                this.primaryGroup[row].children.forEach(item=>{
+                    item.status=false;
+                })
+            }       
+        },
+        removeRow(value){
+            this.primaryGroup = this.primaryGroup.filter(item=>{
+                return item.value!==value;
+            })  
+        },
+        removeChildRow(value){
+            this.primaryGroup = this.primaryGroup.filter(item=>{
+                if(item.children){
+                    item.children = item.children.filter(child=>{
+                        return child.value!==value
                     })
                 }
-            
-        } 
-    },
+                return item;
+            })
+        }  
+    }
 }
 </script>
 

@@ -116,6 +116,7 @@
 </template>
 
 <script>
+//import china from '../../../public/js/echarts/china';
 export default {
     data(){
         return {
@@ -258,9 +259,13 @@ export default {
             //初始化echarts实例
             var myChart = this.$echarts.init(this.$refs.echartMap);
             // 指定图表的配置项和数据
-            let option = {
-                //china.js引入不进来，待解决
-            };
+            
+            //生成随机值
+            function randomData() {  
+                return Math.round(Math.random()*500);  
+            }
+
+            let option = { }
 
             // 使用指定的配置项和数据显示图表。
             myChart.setOption(option);
@@ -269,8 +274,7 @@ export default {
                 window.addEventListener('resize', function() {
                     myChart.resize(); 
                 }
-            );
-            
+            );          
         }
     },
     mounted(){

@@ -1,0 +1,39 @@
+//axios封装
+import axios from 'axios';
+import router from '@/router'
+
+import {getToken} from './auth'
+
+const server = axios.create({
+    baseURL:'http://localhost:8081/',  //自动加在url前面
+    timeout:5000    //请求超时时间
+});
+
+//请求拦截
+server.interceptors.request.use(
+    config=>{
+        if(getToken('user')){
+            //每次请求携带token
+            config.headers['user-token'] = getToken('user');
+        }
+        return config;
+    },
+    error=>{
+        console.log(error);
+    }
+);
+//响应拦截
+server.interceptors.response.use(
+    response => {
+      if (response.data.status === 414) {
+        router.replace('/');
+        console.log("token过期");
+      }
+      return response;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+export default server;

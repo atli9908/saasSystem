@@ -1,7 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index";
-import axios from 'axios';
+import axios from '@/utils/request';
+import store from '@/store/index';
 
 //全局组件
 import myPage from "./components/common/myPage.vue";
@@ -33,5 +34,6 @@ Vue.use(ElementUI,{size:'small'});
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");
