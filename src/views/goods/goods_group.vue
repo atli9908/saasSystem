@@ -4,41 +4,42 @@
         <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='40%'>
             <el-form :model="form" label-width="120px" :rules="rules">
                 <el-form-item label="级别">
-                    <el-radio-group v-model="form.grade" @change="radioChange()">
+                    <el-radio-group v-model="formGroupData.groupClass">
                     <el-radio label="1">一级</el-radio>
                     <el-radio label="2">二级</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <div class="one" v-if=form.showOne>
+
+                <div class="one" v-if="formGroupData.groupClass=='1'">
                     <el-form-item label="一级分组名称" prop="name">
                         <el-input
                         type="text"
                         placeholder="请输入内容"
-                        v-model="form.name"
+                        v-model="formGroupData.groupTitle"
                         maxlength="5"
                         show-word-limit
                         >
                         </el-input>
                     </el-form-item>
                     <el-form-item label="分组状态">
-                        <el-radio-group v-model="form.resource">
+                        <el-radio-group v-model="formGroupData.groupStatus">
                         <el-radio label=1>显示</el-radio>
                         <el-radio label=0>隐藏</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </div>
 
-                <div class="two" v-if=form.showTwo>
+                <div class="two" v-else>
                     <el-form-item label="上级分组" prop="region">
-                        <el-select v-model="form.region" placeholder="请选择">
-                        <el-option v-for="(item,index) in primaryGroup" :label='item.title' :value='index' :key="index"></el-option>
+                        <el-select v-model="formGroupData.parent" placeholder="请选择">
+                        <el-option v-for="(item,index) in primaryGroup" :label='item.label' :value='index' :key="index"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="二级分组名称" prop="childName">
                         <el-input 
                         type="text"
                         placeholder="请输入内容"
-                        v-model="form.childName"
+                        v-model="form.label"
                         maxlength="15"
                         show-word-limit>
                         </el-input>
@@ -216,6 +217,13 @@ export default {
                 showOne:true,
                 showTwo:false
             },
+            formGroupData:{
+                groupTitle:'1',
+                groupClass:'1',
+                groupStatus:'',
+                groupParent:'',
+                groupImg:''
+            },
             rules: {
                 name: [
                     { required: true, message: '请输入分组名称', trigger: 'blur' },
@@ -271,15 +279,6 @@ export default {
         clickShow(row){
             this.primaryGroup[row].showTbody = !this.primaryGroup[row].showTbody
             this.primaryGroup[row].sicon = this.primaryGroup[row].showTbody ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
-        },
-        radioChange(){
-            if(this.form.grade==='1'){
-                this.form.showOne = true;
-                this.form.showTwo = false;
-            }else{
-                this.form.showTwo = true;
-                this.form.showOne = false;
-            }
         },
         changeSwitch(row){      
             if(this.primaryGroup[row].status){

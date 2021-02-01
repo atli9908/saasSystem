@@ -2,7 +2,7 @@
 <template>
     <el-row :gutter="10">
         <!-- 左侧内容 -->
-        <el-col :span="19" class="left-content hidden-sm-and-down">
+        <el-col :span="19" class="left-content">
         <el-row :gutter="10">
             <el-col :span="15">
             <div class="bg-purple card-1">
@@ -62,7 +62,7 @@
             </el-col>
             </el-row>
             <el-row :gutter="20">
-            <el-col :span="8" v-for="(item,index) in home_yxhd.msg" :key="index">
+            <el-col :lg="8" :sm="12" :xs="24" v-for="(item,index) in home_yxhd.msg" :key="index">
                 <div class="bg-purple">
                 <el-row :gutter="0">
                     <el-col :span="7">
@@ -156,13 +156,7 @@ export default {
 }
 </script>
 
-<style>
-
-@media screen and (max-width: 100px) {
-    .hidden-sm-and-down{
-      display: none;
-    }
-}
+<style scoped lang="less">
 
 .left-content a{
   color: steelblue;
