@@ -2,7 +2,7 @@
     <div class="bg-purple">
         <!-- 新增分组对话框 -->
         <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='40%'>
-            <el-form :model="form" label-width="120px" :rules="rules">
+            <el-form :model="formGroupData" label-width="120px" :rules="rules" ref="formGroup">
                 <el-form-item label="级别">
                     <el-radio-group v-model="formGroupData.groupClass">
                     <el-radio label="1">一级</el-radio>
@@ -11,7 +11,7 @@
                 </el-form-item>
 
                 <div class="one" v-if="formGroupData.groupClass=='1'">
-                    <el-form-item label="一级分组名称" prop="name">
+                    <el-form-item label="一级分组名称" prop="groupTitle">
                         <el-input
                         type="text"
                         placeholder="请输入内容"
@@ -30,16 +30,16 @@
                 </div>
 
                 <div class="two" v-else>
-                    <el-form-item label="上级分组" prop="region">
-                        <el-select v-model="formGroupData.parent" placeholder="请选择">
-                        <el-option v-for="(item,index) in primaryGroup" :label='item.label' :value='index' :key="index"></el-option>
+                    <el-form-item label="上级分组" prop="groupParent">
+                        <el-select v-model="formGroupData.groupParent" placeholder="请选择">
+                        <el-option v-for="(item,index) in primaryGroup" :label='item.label' :value='item.label' :key="index"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="二级分组名称" prop="childName">
+                    <el-form-item label="二级分组名称" prop="groupTitle">
                         <el-input 
                         type="text"
                         placeholder="请输入内容"
-                        v-model="form.label"
+                        v-model="formGroupData.groupTitle"
                         maxlength="15"
                         show-word-limit>
                         </el-input>
@@ -55,24 +55,24 @@
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="分组状态">
-                        <el-radio-group v-model="form.resource">
+                        <el-radio-group v-model="formGroupData.groupStatus">
                         <el-radio label=1>显示</el-radio>
                         <el-radio label=0>隐藏</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </div>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-            </div>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="submitGroup()">确 定</el-button>
+                </div>
         </el-dialog>
 
         <h5 class="view_title">商品分组</h5>
         <div class="content-wrap">
             <div class="bg-purple jianju">
                 <el-button plain size="small" class="zhed-btn"><i class="el-icon-caret-bottom"></i> 折叠全部</el-button>
-                <el-button plain size="small" style="float:right" @click="dialogFormVisible = true">新增一级分组</el-button>
+                <el-button plain size="small" style="float:right" @click="createOneGroup()">新增一级分组</el-button>
             </div>
             <div class="bg-purple jianju my-table">
                 <div class="thead" @click="showTbody">
@@ -159,7 +159,7 @@
                         </el-col>
                         <el-col :span="6">
                             <div @click.stop="" class="caoz-a">
-                                <a href="#" @click="dialogFormVisible = true;form.region=index">新增二级分组</a>
+                                <a href="#" @click="createTwoGroup(item)">新增二级分组</a>
                                 <a href="#">编辑</a>
                                 <a href="#" @click="removeRow(item.value)">删除</a>
                             </div>
@@ -203,37 +203,26 @@
 </template>
 
 <script>
+import {getGroup,addGroup} from '@/api/group';
 export default {
     data(){
         return {
             dialogFormVisible:false,
             fileList: [],
-            form:{
-                grade:'1',
-                resource:'1',
-                name:'',
-                childName:'',
-                region:'',
-                showOne:true,
-                showTwo:false
-            },
             formGroupData:{
-                groupTitle:'1',
-                groupClass:'1',
-                groupStatus:'',
+                groupTitle:'',
+                groupClass:'',
+                groupStatus:'1',
                 groupParent:'',
                 groupImg:''
             },
+            groupDatas:[],
             rules: {
-                name: [
+                groupTitle: [
                     { required: true, message: '请输入分组名称', trigger: 'blur' },
                     { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
                 ],
-                childName: [
-                    { required: true, message: '请输入分组名称', trigger: 'blur' },
-                    { min: 2, max: 15, message: '长度在 2 到 15 个字符', trigger: 'blur' }
-                ],
-                region: [
+                groupParent: [
                     { required: true, message: '请选择活动区域', trigger: 'change' }
                 ]
             },
@@ -271,7 +260,39 @@ export default {
             ]
         }
     },
+    mounted(){
+        this.groupDatas = this.getGroupData();
+    },
     methods:{   
+        getGroupData(){
+            getGroup('/getGroup').then(res=>{
+                console.log(res.data);
+            });
+        },
+        createOneGroup(){
+            this.formGroupData.groupClass = "1";
+            this.dialogFormVisible = true;
+        },
+        createTwoGroup(data){
+            this.formGroupData.groupClass = "2";
+            this.formGroupData.groupParent = data.label;
+            this.dialogFormVisible = true;
+        },
+        submitGroup(){
+            this.$refs.formGroup.validate((valid) => {
+                if (valid) {
+                    addGroup(this.formGroupData).then(res=>{
+                        console.log(res)
+                    }).catch(err=>{
+                        console.log(err)
+                    });
+                    this.dialogFormVisible = false;
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+        },
         showTbody(){    
             this.isshow = !this.isshow
             this.sicon = this.isshow ? 'el-icon-caret-bottom' : 'el-icon-caret-right'

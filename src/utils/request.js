@@ -25,9 +25,9 @@ server.interceptors.request.use(
 //响应拦截
 server.interceptors.response.use(
     response => {
-      if (response.data.status === 414) {
-        router.replace('/');
+      if (response.status == 413) {
         console.log("token过期");
+        router.replace('/');
       }
       return response;
     },
