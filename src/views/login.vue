@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import asyncRouter from "@/router/asyncRouter"
 export default {
     data(){
         return{

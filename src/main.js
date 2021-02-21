@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index";
-import axios from '@/utils/request';
+import {server} from '@/utils/request';
 import store from '@/store/index';
 
 //全局组件
@@ -11,7 +11,7 @@ Vue.component("myPage",myPage);
 Vue.component("myAnimated",myAnimated);
 
 //axios
-Vue.prototype.$axios = axios;
+Vue.prototype.$axios = server;
 
 //element-ui
 import ElementUI from 'element-ui';

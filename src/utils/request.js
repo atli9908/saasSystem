@@ -6,8 +6,35 @@ import {getToken} from './auth'
 
 const server = axios.create({
     baseURL:'http://localhost:8081/',  //自动加在url前面
-    timeout:5000    //请求超时时间
+    timeout:5000,    //请求超时时间
 });
+
+const getRequest = function(url){
+    return server({
+        method:'get',
+        url:url
+    })
+}
+const postRequest = function(url,data){
+  return server({
+      method:'post',
+      url:url,
+      data:data
+  })
+}
+const putRequest = function(url,data){
+  return server({
+      method:'put',
+      url:url,
+      data:data
+  })
+}
+const deleteRequest = function(url){
+  return server({
+      method:'delete',
+      url:url
+  })
+}
 
 //请求拦截
 server.interceptors.request.use(
@@ -36,4 +63,10 @@ server.interceptors.response.use(
     }
   );
 
-export default server;
+export {
+  server,
+  getRequest,
+  postRequest,
+  putRequest,
+  deleteRequest
+}

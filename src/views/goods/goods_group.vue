@@ -4,7 +4,7 @@
         <el-dialog title="新增分组" :visible.sync="dialogFormVisible" width='40%'>
             <el-form :model="formGroupData" label-width="120px" :rules="rules" ref="formGroup">
                 <el-form-item label="级别">
-                    <el-radio-group v-model="formGroupData.groupClass">
+                    <el-radio-group v-model="formGroupData.groupClass" :disabled='disabled'>
                     <el-radio label="1">一级</el-radio>
                     <el-radio label="2">二级</el-radio>
                     </el-radio-group>
@@ -23,8 +23,8 @@
                     </el-form-item>
                     <el-form-item label="分组状态">
                         <el-radio-group v-model="formGroupData.groupStatus">
-                        <el-radio label=1>显示</el-radio>
-                        <el-radio label=0>隐藏</el-radio>
+                        <el-radio label='true'>显示</el-radio>
+                        <el-radio label='false'>隐藏</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="two" v-else>
                     <el-form-item label="上级分组" prop="groupParent">
                         <el-select v-model="formGroupData.groupParent" placeholder="请选择">
-                        <el-option v-for="(item,index) in primaryGroup" :label='item.label' :value='item.label' :key="index"></el-option>
+                        <el-option v-for="(item,index) in groupDatas" :value='item.groupClass == 1 ? item.groupTitle : ""' :key="index"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="二级分组名称" prop="groupTitle">
@@ -56,15 +56,16 @@
                     </el-form-item>
                     <el-form-item label="分组状态">
                         <el-radio-group v-model="formGroupData.groupStatus">
-                        <el-radio label=1>显示</el-radio>
-                        <el-radio label=0>隐藏</el-radio>
+                        <el-radio label="true">显示</el-radio>
+                        <el-radio label="false">隐藏</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </div>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="submitGroup()">确 定</el-button>
+                    <el-button v-if="dialogStatus === 'create'" type="primary" @click="submitGroup()">确 定</el-button>
+                    <el-button  v-else type="primary" @click="submiteUpGroup()">确 定</el-button>
                 </div>
         </el-dialog>
 
@@ -85,7 +86,7 @@
                         </el-col>
                         <el-col :span="10">
                             <div @click.stop="">
-                                <span>分组显示 </span>
+                                <span>显示分组 </span>
                                 <el-switch
                                 v-model="value"
                                 active-color="#13ce66"
@@ -137,20 +138,20 @@
                 </div>
             </div>
 
-            <div class="bg-purple" v-for="(item,index) in primaryGroup" :key="item.id">
-                <div class="thead" ref="theads" @click="clickShow(index)">
+            <div class="bg-purple jianju" v-for="(item,index) in groupDatas" :key="item.ID">
+                <div class="thead" ref="theads" @click="clickGroupRow(item)">
                     <el-row>
                         <el-col :span="14">
                             <div>
-                                <i :class="item.sicon"></i>
-                                <span>{{item.label}}</span>
+                                <i :class="sicon"></i>
+                                <span>{{item.groupTitle}}</span>
                             </div>
                         </el-col>
                         <el-col :span="4">
                             <div @click.stop="">
-                                <span>分组显示 </span>
+                                <span>{{item.groupStatus?'显示分组':'隐藏分组'}} </span>
                                 <el-switch
-                                v-model="item.status"
+                                v-model="item.groupStatus"
                                 @change="changeSwitch(index)"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
@@ -160,18 +161,18 @@
                         <el-col :span="6">
                             <div @click.stop="" class="caoz-a">
                                 <a href="#" @click="createTwoGroup(item)">新增二级分组</a>
-                                <a href="#">编辑</a>
-                                <a href="#" @click="removeRow(item.value)">删除</a>
+                                <a href="#" @click="showUpDialog(item)">编辑</a>
+                                <a href="#" @click="removeRow(item,item.ID)">删除</a>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
-                <div class="tbody" v-if="item.showTbody">
-                    <el-row v-for="child in item.children" :key="child.id">
+                <div class="tbody">
+                    <el-row v-for="child in item.children" :key="child.ID">
                         <el-col :span="7">
                             <div class="imgTitle">
-                                <img :src="child.imgsrc" alt="">
-                                <span> {{child.label}}</span>
+                                <img src="/img/1.png" alt="">
+                                <span> {{child.groupTitle}}</span>
                             </div>
                         </el-col>
                         <el-col :span="6">
@@ -181,9 +182,10 @@
                         </el-col>      
                         <el-col :span="5">
                             <div>
-                                <span>显示分组 </span>
+                                <span>{{child.groupStatus?'显示分组 ':'隐藏分组 '}} </span>
                                 <el-switch
-                                v-model="child.status"
+                                @change="changeChildSwitch(child.ID,child.groupStatus)"
+                                v-model="child.groupStatus"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
                                 </el-switch>
@@ -191,8 +193,8 @@
                         </el-col>
                         <el-col :span="6">
                             <div class="caoz-a">
-                                <a href="#">编辑</a>
-                                <a href="#" @click="removeChildRow(child.value)">删除</a>
+                                <a href="#" @click="showUpDialog(child)">编辑</a>
+                                <a href="#" @click="removeRow(child,child.ID)">删除</a>
                             </div>
                         </el-col>
                     </el-row>
@@ -203,16 +205,18 @@
 </template>
 
 <script>
-import {getGroup,addGroup} from '@/api/group';
+import {getRequest,postRequest,putRequest,deleteRequest} from '@/utils/request';
 export default {
     data(){
         return {
+            dialogStatus:'',
             dialogFormVisible:false,
             fileList: [],
+            disabled:false,
             formGroupData:{
                 groupTitle:'',
                 groupClass:'',
-                groupStatus:'1',
+                groupStatus:'true',
                 groupParent:'',
                 groupImg:''
             },
@@ -223,7 +227,7 @@ export default {
                     { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
                 ],
                 groupParent: [
-                    { required: true, message: '请选择活动区域', trigger: 'change' }
+                    { required: true, message: '请选择父级分组', trigger: 'change' }
                 ]
             },
             value:true,
@@ -261,28 +265,55 @@ export default {
         }
     },
     mounted(){
-        this.groupDatas = this.getGroupData();
+        this.getGroupData();
     },
     methods:{   
-        getGroupData(){
-            getGroup('/getGroup').then(res=>{
+        getGroupData(){  //初始化数据
+            getRequest('/getGroup').then(res=>{
                 console.log(res.data);
-            });
+                this.groupDatas = res.data;
+            })
         },
         createOneGroup(){
+            this.formGroupData = {
+                groupTitle:'',
+                groupClass:'',
+                groupStatus:'true',
+                groupParent:'',
+                groupImg:''
+            };
             this.formGroupData.groupClass = "1";
             this.dialogFormVisible = true;
+            this.dialogStatus = 'create';
+            this.disabled = false;
         },
         createTwoGroup(data){
+            this.formGroupData = {
+                groupTitle:'',
+                groupClass:'',
+                groupStatus:'true',
+                groupParent:'',
+                groupImg:''
+            };
             this.formGroupData.groupClass = "2";
-            this.formGroupData.groupParent = data.label;
+            this.formGroupData.groupParent = data.groupTitle;
             this.dialogFormVisible = true;
+            this.dialogStatus = 'create';
+            this.disabled = false;
         },
-        submitGroup(){
+        showUpDialog(data){
+            this.dialogFormVisible = true;
+            this.dialogStatus = 'updata';
+            this.formGroupData = data;
+            this.formGroupData.groupStatus = String(data.groupStatus);
+            this.disabled = true;
+        },
+        submitGroup(){ //新增分组
             this.$refs.formGroup.validate((valid) => {
                 if (valid) {
-                    addGroup(this.formGroupData).then(res=>{
-                        console.log(res)
+                    postRequest('/addGroup',this.formGroupData).then(res=>{
+                        this.getGroupData();
+                        console.log(res.statusText)
                     }).catch(err=>{
                         console.log(err)
                     });
@@ -293,45 +324,99 @@ export default {
                 }
             });
         },
+        submiteUpGroup(){ //修改分组
+            console.log('bianji');
+            putRequest('/group/updata',this.formGroupData).then(res=>{
+                this.dialogFormVisible = false;
+                this.$message({
+                    showClose: true,
+                    message: res.data.msg,
+                    type: 'success'
+                });
+            }).catch(err=>{
+                this.$message({
+                    showClose: true,
+                    message: err,
+                    type: 'error'
+                });
+                this.getGroupData();
+            })
+        },
+        changeChildSwitch(id,state){ //修改状态
+            getRequest(`/group/status?id=${id}&state=${state}`).then(res=>{
+                this.$message({
+                    showClose: true,
+                    message: '修改成功',
+                    type: 'success'
+                });
+            })
+        },
         showTbody(){    
             this.isshow = !this.isshow
             this.sicon = this.isshow ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
+        },
+        clickGroupRow(row){
+            console.log(row)
         },
         clickShow(row){
             this.primaryGroup[row].showTbody = !this.primaryGroup[row].showTbody
             this.primaryGroup[row].sicon = this.primaryGroup[row].showTbody ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
         },
-        changeSwitch(row){      
-            if(this.primaryGroup[row].status){
-                this.primaryGroup[row].children.forEach(item=>{
-                    item.status=true;
+        changeSwitch(index){      
+            if(this.groupDatas[index].groupStatus){
+                this.groupDatas[index].children.forEach(item=>{
+                    item.groupStatus=true;
                 })
             }else{
-                this.primaryGroup[row].children.forEach(item=>{
-                    item.status=false;
+                this.groupDatas[index].children.forEach(item=>{
+                    item.groupStatus=false;
                 })
-            }       
+            }      
         },
-        removeRow(value){
-            this.primaryGroup = this.primaryGroup.filter(item=>{
-                return item.value!==value;
-            })  
-        },
-        removeChildRow(value){
-            this.primaryGroup = this.primaryGroup.filter(item=>{
-                if(item.children){
-                    item.children = item.children.filter(child=>{
-                        return child.value!==value
+        removeRow(data,id){  //删除分组
+            if(data.children&&data.children.length>0){
+                this.$confirm('存在子分组, 是否继续删除?','警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    deleteRequest(`/group/delete?id=${id}`).then(res=>{
+                        deleteRequest(`/group/deleteChildren?parent=${data.groupTitle}`).then(res=>{
+                            this.$message({
+                                showClose: true,
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                        })
+                        this.$message({
+                            showClose: true,
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        this.getGroupData();
                     })
-                }
-                return item;
-            })
-        }  
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            }else{
+                deleteRequest(`/group/delete?id=${id}`).then(res=>{
+                    this.getGroupData();
+                    this.$message({
+                        showClose: true,
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                })
+            }
+        }
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang='less'>
 .jianju{
     margin-bottom: 10px;
 }

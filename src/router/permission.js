@@ -1,9 +1,9 @@
-import {getRouterMenu} from "@/api/routerMenu";
+import {getRequest} from "@/utils/request";
 
 import asyncRouter from "./asyncRouter";
 import store from "@/store"
 
-function hasPermission(router,role){
+function hasPermission(router,role){ //判断权限
     if(router.mate && router.mate.role.includes(role)){
         return true;
     }else{
@@ -11,10 +11,14 @@ function hasPermission(router,role){
     }
 }
 
+function getRouterMenu(){ //从后端获取路由菜单
+    return getRequest('/routerMenu');
+}
+
 const filterEmun = function(role){
     const routers = [];
     getRouterMenu().then(res=>{
-        res.routes.forEach(router=>{
+        res.data.routes.forEach(router=>{
             if(hasPermission(router,role)){
                 if(router.children && router.children.length > 0){
                     router.children = router.children.filter(child=>{
