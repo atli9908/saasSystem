@@ -18,6 +18,12 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 
+//vant
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+Vue.use(Vant);
+
 //ckEditor
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 Vue.use(CKEditor);

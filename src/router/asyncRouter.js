@@ -86,6 +86,13 @@ export default [
         component:()=> import("../views/customers/allCustomers.vue"),
         mate:{ title:'',icon:'',role: ['admin','staff'] }
       },
+      //营销
+      {
+        path:'/activity',
+        name:'activity',
+        component:()=> import("../views/activity/index.vue"),
+        mate:{ title:'',icon:'',role: ['admin','staff'] }
+      },
       //设置
       {
         path:'/shopMsg',

@@ -5,8 +5,8 @@ import router from '@/router'
 import {getToken} from './auth'
 
 const server = axios.create({
-    baseURL:'http://localhost:8081/',  //自动加在url前面
-    timeout:5000,    //请求超时时间
+    baseURL:'http://localhost:8081/',  //http://q3r7711696.zicp.vip:15793/
+    //timeout:5000,    //请求超时时间
 });
 
 const getRequest = function(url){

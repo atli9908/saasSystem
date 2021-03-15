@@ -46,11 +46,17 @@
                     </el-form-item>
                     <el-form-item label="二级分组图片">
                         <el-upload
+                        ref="upload"
                         class="upload-demo"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :limit="1"
-                        :file-list="fileList">
-                            <el-button size="small" type="primary">点击上传</el-button>
+                        list-type="picture-card"
+                        action=""
+                        :auto-upload="false"
+                        :show-file-list="false"
+                        :http-request="httpRequest"
+                        :on-change="onChange"
+                        :on-success="onSuccess">
+                            <img v-if="imgUrl" :src="imgUrl" alt="" class="uploadImg">
+                            <i v-else class="el-icon-plus"></i>
                             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
                         </el-upload>
                     </el-form-item>
@@ -152,7 +158,7 @@
                                 <span>{{item.groupStatus?'显示分组':'隐藏分组'}} </span>
                                 <el-switch
                                 v-model="item.groupStatus"
-                                @change="changeSwitch(index)"
+                                @change="changeSwitch(item)"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
                                 </el-switch>
@@ -171,7 +177,7 @@
                     <el-row v-for="child in item.children" :key="child.ID">
                         <el-col :span="7">
                             <div class="imgTitle">
-                                <img src="/img/1.png" alt="">
+                                <img :src="child.groupImg" alt="" style="width:36px;height:36px">
                                 <span> {{child.groupTitle}}</span>
                             </div>
                         </el-col>
@@ -184,7 +190,7 @@
                             <div>
                                 <span>{{child.groupStatus?'显示分组 ':'隐藏分组 '}} </span>
                                 <el-switch
-                                @change="changeChildSwitch(child.ID,child.groupStatus)"
+                                @change="changeSwitch(child)"
                                 v-model="child.groupStatus"
                                 active-color="#13ce66"
                                 inactive-color="#ccc">
@@ -211,8 +217,8 @@ export default {
         return {
             dialogStatus:'',
             dialogFormVisible:false,
-            fileList: [],
             disabled:false,
+            imgUrl:'',
             formGroupData:{
                 groupTitle:'',
                 groupClass:'',
@@ -233,41 +239,16 @@ export default {
             value:true,
             isshow:true,
             sicon:'el-icon-caret-bottom',
-            primaryGroup:[
-                {
-                    id:'1',
-                    label:'洗家电器',
-                    value:'xjdq',
-                    status:true,
-                    showTbody:true,
-                    sicon:'el-icon-caret-bottom',
-                    children:[
-                        {id:'1',imgsrc:'/img/1.png',label:'擦地机',value:'cdj',status:true},
-                        {id:'2',imgsrc:'/img/1.png',label:'吸尘器',value:'xcq',status:true},
-                        {id:'3',imgsrc:'/img/1.png',label:'蒸汽清洗机',value:'zqqxj',status:false},
-                        {id:'4',imgsrc:'/img/1.png',label:'配件',value:'xjpj',status:false},
-                    ]
-                },
-                {
-                    id:'2',
-                    label:'美容清洗',
-                    value:'mrqx',
-                    status:true,
-                    showTbody:true,
-                    sicon:'el-icon-caret-bottom',
-                    children:[
-                        {id:'1',imgsrc:'/img/1.png',label:'高压清洗机',value:'gyqxj',status:false},
-                        {id:'2',imgsrc:'/img/1.png',label:'清洁剂',value:'qjj',status:false},
-                        {id:'3',imgsrc:'/img/1.png',label:'配件',value:'mrpj',status:false}
-                    ]
-                },
-            ]
         }
     },
     mounted(){
         this.getGroupData();
     },
     methods:{   
+        showTbody(){    
+            this.isshow = !this.isshow
+            this.sicon = this.isshow ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
+        },
         getGroupData(){  //初始化数据
             getRequest('/getGroup').then(res=>{
                 console.log(res.data);
@@ -304,13 +285,17 @@ export default {
         showUpDialog(data){
             this.dialogFormVisible = true;
             this.dialogStatus = 'updata';
-            this.formGroupData = data;
-            this.formGroupData.groupStatus = String(data.groupStatus);
+            //使用Onject.assign拷贝不会造成数据联动
+            Object.assign(this.formGroupData,data,{groupStatus:String(data.groupStatus)});
+            this.imgUrl = data.groupImg;
+            //this.formGroupData.groupStatus = String(data.groupStatus);
             this.disabled = true;
         },
         submitGroup(){ //新增分组
             this.$refs.formGroup.validate((valid) => {
                 if (valid) {
+                    //图片上传
+                    this.$refs.upload.submit();
                     postRequest('/addGroup',this.formGroupData).then(res=>{
                         this.getGroupData();
                         console.log(res.statusText)
@@ -324,9 +309,24 @@ export default {
                 }
             });
         },
+        httpRequest(){
+
+        },
+        onChange(file){
+            this.imgUrl = URL.createObjectURL(file.raw);
+            this.formGroupData.groupImg = file.url;
+        },
+        onSuccess(response, file, fileList){
+            //console.log(response, file, fileList)
+        },
         submiteUpGroup(){ //修改分组
-            console.log('bianji');
             putRequest('/group/updata',this.formGroupData).then(res=>{
+                if(this.formGroupData.groupClass==="1"){
+                    getRequest(`/group/child/status?groupTitle=${this.formGroupData.groupTitle}&state=${this.formGroupData.groupStatus}`).then(res=>{
+                        this.getGroupData();
+                    })
+                }
+                this.getGroupData();
                 this.dialogFormVisible = false;
                 this.$message({
                     showClose: true,
@@ -342,40 +342,26 @@ export default {
                 this.getGroupData();
             })
         },
-        changeChildSwitch(id,state){ //修改状态
-            getRequest(`/group/status?id=${id}&state=${state}`).then(res=>{
+        changeSwitch(item){ //修改状态
+            getRequest(`/group/status?id=${item.ID}&state=${item.groupStatus}`).then(res=>{
                 this.$message({
                     showClose: true,
-                    message: '修改成功',
+                    message: res.data.msg,
                     type: 'success'
                 });
             })
+            if(item.children&&item.children.length>0){ //判断是否有关联子分组               
+                getRequest(`/group/child/status?groupTitle=${item.groupTitle}&state=${item.groupStatus}`).then(res=>{
+                    this.getGroupData()     
+                });               
+            }
         },
-        showTbody(){    
-            this.isshow = !this.isshow
-            this.sicon = this.isshow ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
-        },
-        clickGroupRow(row){
+        clickGroupRow(row){  //每类数据
             console.log(row)
-        },
-        clickShow(row){
-            this.primaryGroup[row].showTbody = !this.primaryGroup[row].showTbody
-            this.primaryGroup[row].sicon = this.primaryGroup[row].showTbody ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
-        },
-        changeSwitch(index){      
-            if(this.groupDatas[index].groupStatus){
-                this.groupDatas[index].children.forEach(item=>{
-                    item.groupStatus=true;
-                })
-            }else{
-                this.groupDatas[index].children.forEach(item=>{
-                    item.groupStatus=false;
-                })
-            }      
         },
         removeRow(data,id){  //删除分组
             if(data.children&&data.children.length>0){
-                this.$confirm('存在子分组, 是否继续删除?','警告', {
+                this.$confirm('是否同步删除关联子分组?','警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -402,14 +388,27 @@ export default {
                     });          
                 });
             }else{
-                deleteRequest(`/group/delete?id=${id}`).then(res=>{
-                    this.getGroupData();
+                this.$confirm(`是否删除 ${data.groupTitle} 分组?`,'警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(()=>{
+                    deleteRequest(`/group/delete?id=${id}`).then(res=>{
+                        this.$message({
+                            showClose: true,
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        this.getGroupData();
+                    })
+                }).catch(()=>{
                     this.$message({
                         showClose: true,
-                        message: res.data.msg,
+                        message: '已取消',
                         type: 'success'
-                    });
+                    });    
                 })
+                
             }
         }
     }
@@ -417,6 +416,11 @@ export default {
 </script>
 
 <style scoped lang='less'>
+.uploadImg{
+    width: 145px;
+    height: 145px;
+    border-radius: 5px;
+}
 .jianju{
     margin-bottom: 10px;
 }
